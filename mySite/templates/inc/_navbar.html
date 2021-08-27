@@ -1,16 +1,19 @@
+{% with url_name=request.resolver_match.url_name %}
 <header class="p-3 bg-dark text-white fs-4">
   <div class="container">
     <div class="align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-white">Микроблог</a></li> .
-        <li><a href="#" class="nav-link px-2 text-white">Резюме</a></li> .
-        <li><a href="#" class="nav-link px-2 text-white">Список просмотренного</a></li>
+        <li>
+        <a href="{% url 'homePage' %}" class="nav-link px-2 text-white {% if url_name == 'homePage' %}current{% endif %}">Домашняя</a></li> .
+        <li><a href="{% url 'microblog/blogList' %}" class="nav-link px-2 text-white {% if url_name == 'microblog/blogList' %}current{% endif %}">Микроблог</a></li> .
+        <li><a href="#" class="nav-link px-2 text-white {% if url_name == 'resume' %}current{% endif %}">Резюме</a></li> .
+        <li><a href="#" class="nav-link px-2 text-white {% if url_name == 'watchList' %}current{% endif %}">Список просмотренного</a></li>
       </ul>
 
       {% block search %}
       {% include 'microblog/inc/_searchbar.html' %}
       {% endblock search %}
-
     </div>
   </div>
 </header>
+{% endwith %}
