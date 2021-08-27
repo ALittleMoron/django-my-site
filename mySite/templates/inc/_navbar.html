@@ -7,7 +7,9 @@
         <li><a href="#" class="nav-link px-2 text-white">Список просмотренного</a></li>
       </ul>
 
-      {% block search %}{% endblock search %}
+      {% block search %}
+      {% include 'microblog/inc/_searchbar.html' %}
+      {% endblock search %}
 
     </div>
   </div>
