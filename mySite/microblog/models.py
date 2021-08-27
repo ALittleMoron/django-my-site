@@ -1,5 +1,6 @@
 from taggit.managers import TaggableManager
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -17,6 +18,13 @@ class Post(models.Model):
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано?")
     tags = TaggableManager()
     
+    def save(self, *args, **kwargs):
+        if self.is_published and self.published_at is None:
+            self.published_at = timezone.now()
+        elif not self.is_published and self.published_at is not None:
+            self.published_at = None
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return self.title
 
