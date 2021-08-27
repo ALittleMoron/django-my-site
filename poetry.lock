@@ -112,6 +112,17 @@ Django = ">=2.2"
 sqlparse = ">=0.2.0"
 
 [[package]]
+name = "django-taggit"
+version = "1.5.1"
+description = "django-taggit is a reusable Django application for simple tagging."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+Django = ">=2.2"
+
+[[package]]
 name = "ipython"
 version = "7.26.0"
 description = "IPython: Productive Interactive Computing"
@@ -357,7 +368,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d12e02f984968d04b2a919763e2501540cce22a1414f0c70bb8c4bd3ddaa3af7"
+content-hash = "aab11becbb0877b0a4a9e5094391845d1a5b24f171102421f59d486a6f1b3413"
 
 [metadata.files]
 appdirs = [
@@ -399,6 +410,10 @@ django = [
 django-debug-toolbar = [
     {file = "django-debug-toolbar-3.2.2.tar.gz", hash = "sha256:8c5b13795d4040008ee69ba82dcdd259c49db346cf7d0de6e561a49d191f0860"},
     {file = "django_debug_toolbar-3.2.2-py3-none-any.whl", hash = "sha256:d7bab7573fab35b0fd029163371b7182f5826c13da69734beb675c761d06a4d3"},
+]
+django-taggit = [
+    {file = "django-taggit-1.5.1.tar.gz", hash = "sha256:e5bb62891f458d55332e36a32e19c08d20142c43f74bc5656c803f8af25c084a"},
+    {file = "django_taggit-1.5.1-py3-none-any.whl", hash = "sha256:dfe9e9c10b5929132041de0c00093ef0072c73c2a97d0f74a818ae50fa77149a"},
 ]
 ipython = [
     {file = "ipython-7.26.0-py3-none-any.whl", hash = "sha256:892743b65c21ed72b806a3a602cca408520b3200b89d1924f4b3d2cdb3692362"},
