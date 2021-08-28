@@ -1,9 +1,23 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.contrib import messages
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.views.generic import (View, ListView, CreateView, UpdateView, DeleteView, DetailView)
+
+from .forms import PostForm
 from .models import Post
+from .mixins import NotNavigate
+
+
+class Resume(View):
+    http_method_names = ['get']
+    template_name = 'microblog/resume.html'
+    
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return render(request, self.template_name)
+
+
 
 class HomePage(View):
     """ Класс вывода домашней страницы.
@@ -13,12 +27,12 @@ class HomePage(View):
     http_method_names = ['get']
     template_name = 'microblog/homePage.html'
     
-    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    def get(self, request: HttpRequest) -> HttpResponse:
         return render(request, self.template_name)
 
 
-class BlogList(ListView):
-    template_name = 'microblog/blogList.html'
+class PostList(ListView):
+    template_name = 'microblog/postList.html'
     queryset = Post.objects.filter(is_published=True).all()
     context_object_name = 'posts'
     paginate_by = 12
@@ -35,17 +49,38 @@ class BlogList(ListView):
         return render(request, self.template_name, context={'posts': query})
 
 
-class PostDetail(DetailView):
-    pass
+class PostDetail(NotNavigate, DetailView):
+    model = Post
+    template_name = 'microblog/postDetail.html'
+    context_object_name = 'post'
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
-    pass
+class PostCreate(NotNavigate, LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'microblog/postCreate.html'
+
+    
+
+    def post(self, request, *args, **kwargs):
+        """ Переопределенный метод клааса CreateView для отправки сообщения об
+        ошибки валидации формы.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            messages.error('Некорректные данные в форме!')
+            return self.form_invalid(form)
 
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
-    pass
+class PostUpdate(NotNavigate, LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'microblog/postUpdate.html'
 
 
-class PostDelete(LoginRequiredMixin, DeleteView):
-    pass
+class PostDelete(NotNavigate, LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'microblog/postDelete.html'
+    success_url = '/'
