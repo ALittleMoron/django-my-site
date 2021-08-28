@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block navigate %}
+{% if user.is_superuser %}
+    <div class="align-items-center justify-content-center justify-content-lg-start">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+{% with url_name=request.resolver_match.url_name %}
+    {% if url_name == 'microblog/postList' %}
+    <a href="{% url 'microblog/postCreate' %}" class="nav-link text-white" style='display: block;'>Написать новость</a>
+    {% endif %}
+{% endwith %}
+    <a href="{% url 'admin:index' %}" class="nav-link text-white" >Перейти в админку</a>
+</ul>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock navigate %}
+
+
+{% block main %}
+
+{% endblock main %}

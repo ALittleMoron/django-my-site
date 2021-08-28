@@ -21,9 +21,15 @@
     </head>
     <body>
     
-    {% block navigate %}
-        {% include 'inc/_navbar.html' %}
-    {% endblock navigate %}
+    {% if not notNavigate %}
+    <header class="p-3 bg-dark text-white fs-4">
+      <div class="container">
+        {% block navigate %}
+            {% include 'inc/_navbar.html' %}
+        {% endblock navigate %}
+      </div>
+    </hearder>
+    {% endif %}
     
     {% block main %} 
     
