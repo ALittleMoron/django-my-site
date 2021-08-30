@@ -18,5 +18,30 @@
 
 
 {% block main %}
-
+{{posts}}
+<div class="container mt-4">
+{% for post in posts %}
+<div class="card text-white bg-dark border border-white">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <p class="nav-link active">Пост</p>
+      </li>
+      {% for tag in post.tags.all %}
+      <li class="nav-item">
+        <p class="navbar-brand mx-3" style="font-size: 18px;">{{tag.name}}</p>
+      </li>
+      {%endfor%}
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-center">{{post.title|truncatewords:50}}</h5>
+    <p class="card-text">{{post.text|truncatewords:200}}</p>
+    <a href="#" class="btn btn-danger btn-custom">Подробнее</a>
+  </div>
+</div>
+{% empty %}
+<p class="fs-1 text-white text-center">Видимо, я пока что ничего не написал (или ещё не опубликовал). Вернитесь сюда позже.</p>
+{% endfor %}
+</div>
 {% endblock main %}

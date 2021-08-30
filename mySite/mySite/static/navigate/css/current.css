@@ -1,4 +1,9 @@
 .current
 {
-    color: rgb(104, 104, 104) !important;
+    color: #ec4b4b !important;
+}
+
+.btn-custom {
+    background: #ec4b4b !important;
+    color: #fff !important;
 }

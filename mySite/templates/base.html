@@ -10,30 +10,34 @@
           rel="stylesheet"
           type="text/css"
           href="{% static "bootstrap/css/bootstrap.min.css" %}"/>
-        {% block extrastyle%}
         <link
           rel="stylesheet"
           type="text/css"
           href="{% static 'navigate/css/current.css' %}">
+        {% block extrastyle%}
         {% endblock %}
         <link rel='icon' href="{% static 'favicon.ico' %}" type='image/x-icon'>
         <title>{% block title %} {{ title }} {% endblock title %}</title>
     </head>
-    <body>
-    
+    <body class="bg-dark">
+    <div>
     {% if not notNavigate %}
-    <header class="p-3 bg-dark text-white fs-4">
+    <header class="p-3 text-white fs-4 border-bottom border-light">
       <div class="container">
-        {% block navigate %}
-            {% include 'inc/_navbar.html' %}
-        {% endblock navigate %}
+       {% block navigate %}
+        {% include 'inc/_navbar.html' %}
+       {% endblock %}
       </div>
     </hearder>
     {% endif %}
+    </div>
     
-    {% block main %} 
-    
-    {% endblock %}
+
+    <div>
+        {% block main %}
+        
+        {% endblock %}
+    </div>
     
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     </body>
