@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from slugify import slugify
 from taggit.managers import TaggableManager
 
 # Create your models here.
@@ -12,6 +13,7 @@ class Post(models.Model):
     """
     title = models.CharField(max_length=255, unique=True, verbose_name="Заголовок")
     text = models.TextField(verbose_name="Текст")
+    slug = models.SlugField(null=True, max_length=300)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата написания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
     published_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата публикации")
@@ -23,6 +25,10 @@ class Post(models.Model):
             self.published_at = timezone.now()
         elif not self.is_published and self.published_at is not None:
             self.published_at = None
+
+        if not self.slug:
+            self.slug = slugify(self.title)
+        
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:

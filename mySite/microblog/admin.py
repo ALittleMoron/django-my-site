@@ -9,6 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'tags')
     list_editable = ('is_published',)
     list_filter = ('is_published', 'tags')
+    prepopulated_fields = {'slug': ('title',)} 
 
 
 admin.site.register(Post, PostAdmin)
