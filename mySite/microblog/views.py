@@ -53,6 +53,7 @@ class PostDetail(NotNavigate, DetailView):
     model = Post
     template_name = 'microblog/postDetail.html'
     context_object_name = 'post'
+    slug_url_kwarg = 'slug'
 
 
 class PostCreate(NotNavigate, LoginRequiredMixin, CreateView):
@@ -60,7 +61,6 @@ class PostCreate(NotNavigate, LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = 'microblog/postCreate.html'
 
-    
 
     def post(self, request, *args, **kwargs):
         """ Переопределенный метод клааса CreateView для отправки сообщения об
