@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container mt-5">
+
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center fs-3 border">
+        <li>
+            <a href="{% url 'microblog/postList' %}" class="nav-link mx-1 text-white hovered">Назад</a>
+        </li>
+        {% if user.is_superuser %}
+        <li>
+            <a href="{% url 'microblog/postDelete' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
+        </li>
+        <li>
+            <a href="{% url 'microblog/postUpdate' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Обновить</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:index' %}" class="nav-link mx-1 text-white hovered">Админка</a>
+        </li>
+        {% endif %}
+    </ul>
+
+    <div class="row">
+        <article>
+            <header class="mb-4 mt-2">
+                <h1 class="fw-bolder mb-1 text-white">{{post.title}}</h1>
+
+                {% if post.is_published %}
+                    <div class="text-muted fst-italic mb-2 text-white">Опубликовано {{post.published_at}} мной лично.</div>
+                {% else %}
+                    <div class="text-muted fst-italic mb-2 text-white">Ещё не опубликовано.</div>
+                {% endif %}
+
+                {% for tag in post.tags.all %}
+                    <a class="badge bg-secondary text-decoration-none link-light" href="#">{{tag.name}}</a>
+                {% endfor %}
+
+            </header>
+            <section class="mb-5">
+                <p class='text-white my-3'>{{post.text}}</p>
+            </section>
+        </article>
+    </div>
+</div>
+{% endblock main %}

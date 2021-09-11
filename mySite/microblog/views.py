@@ -83,4 +83,5 @@ class PostUpdate(NotNavigate, LoginRequiredMixin, UpdateView):
 class PostDelete(NotNavigate, LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'microblog/postDelete.html'
-    success_url = '/'
+    context_object_name = 'post'
+    success_url = '/microblog/'

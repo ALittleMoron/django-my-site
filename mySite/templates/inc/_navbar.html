@@ -6,6 +6,9 @@
         <li><a href="{% url 'microblog/postList' %}" class="nav-link px-2 text-white hovered {% if url_name == 'microblog/postList' %}current{% endif %}">Микроблог</a></li> .
         <li><a href="{% url 'resume' %}" class="nav-link px-2 text-white hovered {% if url_name == 'resume' %}current{% endif %}">Резюме</a></li> .
         <li><a href="#" class="nav-link px-2 text-white hovered {% if url_name == 'watchList' %}current{% endif %}">Библиотека</a></li>
+        {% if user.is_superuser %}
+        . <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white hovered">Админка</a></li>
+        {% endif %}
       </ul>
 
       {% block search %}

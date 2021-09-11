@@ -36,7 +36,7 @@
   <div class="card-body">
     <h5 class="card-title text-center">{{post.title|truncatewords:50}}</h5>
     <p class="card-text">{{post.text|truncatewords:200}}</p>
-    <a href="#" class="btn btn-danger btn-custom">Подробнее</a>
+    <a href="{% url 'microblog/postDetail' slug=post.slug %}" class="btn btn-danger btn-custom">Подробнее</a>
   </div>
 </div>
 {% empty %}

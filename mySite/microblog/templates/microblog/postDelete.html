@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container mt-5">
+<div class="form-group mx-auto">
+  <h2 class="text-center text-white mt-3">
+    Вы собираетесь <span class="text-danger">удалить</span> пост "<i>{{ post}}</i>"
+  </h2>
+  <p class="text-center">Вы уверены, что хотите это сделать?</p>
+  <div class="form-group">
+    <form
+      method="post"
+      class="d-flex flex-column align-items-center justify-content-center"
+      >
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <a href="{% url 'microblog/postDetail' slug=post.slug %}" class="nav-link text-white fs-4 hovered">Назад</a>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-danger fs-4">Удалить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+    </div>
+{% endblock main %}

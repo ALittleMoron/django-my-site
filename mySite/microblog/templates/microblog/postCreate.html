@@ -4,7 +4,7 @@
 {% block main %}
 
 <div class="container align-items-center">
-  <form action="{% url 'microblog/postCreate' %}" class="form-3" method="POST">
+  <form action="{% url 'microblog/postCreate' %}" method="POST">
     {% csrf_token %}
     {{ form.non_field.errors}}
     
