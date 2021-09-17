@@ -12,7 +12,7 @@
             <a href="{% url 'microblog/postDelete' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
         </li>
         <li>
-            <a href="{% url 'microblog/postUpdate' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Обновить</a>
+            <a href="{% url 'admin:microblog_post_change' post.pk %}" class="nav-link mx-1 text-white hovered">Обновить</a>
         </li>
         <li>
             <a href="{% url 'admin:index' %}" class="nav-link mx-1 text-white hovered">Админка</a>
@@ -36,8 +36,8 @@
                 {% endfor %}
 
             </header>
-            <section class="mb-5">
-                <p class='text-white my-3'>{{post.text}}</p>
+            <section class="text-white">
+                <p class='text-white'>{{post.text|safe}}</p>
             </section>
         </article>
     </div>

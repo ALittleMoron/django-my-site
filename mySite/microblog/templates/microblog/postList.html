@@ -26,16 +26,13 @@
       <li class="nav-item">
         <p class="nav-link active">Пост</p>
       </li>
-      {% for tag in post.tags.all %}
       <li class="nav-item">
-        <p class="navbar-brand mx-3" style="font-size: 18px;">{{tag.name}}</p>
+        <h2 class="navbar-brand mx-3">{{post.title|truncatewords:50}}</h2>
       </li>
-      {%endfor%}
     </ul>
   </div>
   <div class="card-body">
-    <h5 class="card-title text-center">{{post.title|truncatewords:50}}</h5>
-    <p class="card-text">{{post.text|truncatewords:200}}</p>
+    <p class="card-text">{{post.text|truncatewords:50|safe}}</p>
     <a href="{% url 'microblog/postDetail' slug=post.slug %}" class="btn btn-danger btn-custom">Подробнее</a>
   </div>
 </div>
