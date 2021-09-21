@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'taggit',
     
     'microblog.apps.MicroblogConfig',
+    'resume.apps.ResumeConfig',
+    'myList.apps.MylistConfig',
 ]
 
 MIDDLEWARE = [
