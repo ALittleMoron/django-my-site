@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import HomePage, PostDelete, PostDetail, PostList, PostCreate, PostUpdate, Resume
+
+from .views import (HomePage, PostCreate, PostDelete, PostDetail, PostList,
+                    PostUpdate, Resume)
 
 urlpatterns = [
     path('', HomePage.as_view(), name='homePage'),

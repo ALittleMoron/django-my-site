@@ -1,7 +1,6 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
-from django.forms import widgets
 
 from .models import Post
 

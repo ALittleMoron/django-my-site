@@ -1,13 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
 from django.contrib import messages
+from django.db.models import Q
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.views.generic import (View, ListView, CreateView, UpdateView, DeleteView, DetailView)
 
 from .forms import PostForm
-from .models import Post
 from .mixins import NotNavigate
+from .models import Post
 
 
 class Resume(View):
