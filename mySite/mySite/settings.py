@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+PROJECT_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, os.path.join(BASE_DIR, 'applications'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -44,9 +46,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'taggit',
     
-    'microblog.apps.MicroblogConfig',
-    'resume.apps.ResumeConfig',
-    'myList.apps.MylistConfig',
+    'microblog',
+    'resume',
+    'myList',
 ]
 
 MIDDLEWARE = [
