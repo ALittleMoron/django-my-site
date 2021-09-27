@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from .mixins import GetView
 
-# Create your views here.
+
+
+class Resume(GetView):
+    template_name = 'resume/resume.html'
+
+
+class AboutMe(GetView):
+    template_name = 'resume/aboutMe.html'
+
+
+class GitHubProjects(GetView):
+    template_name = 'resume/gitHubProjects.html'

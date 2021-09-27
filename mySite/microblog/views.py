@@ -10,15 +10,6 @@ from .mixins import NotNavigate
 from .models import Post
 
 
-class Resume(View):
-    http_method_names = ['get']
-    template_name = 'microblog/resume.html'
-    
-    def get(self, request: HttpRequest) -> HttpResponse:
-        return render(request, self.template_name)
-
-
-
 class HomePage(View):
     """ Класс вывода домашней страницы.
     
