@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+
+{% block navigate %}
+  {{ block.super }}
+  {% block search %}
+    {% include 'microblog/inc/_searchbar.html' %}
+  {% endblock search %}
+{% endblock navigate %}

@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.generic import (View, ListView, CreateView, UpdateView, DeleteView, DetailView)
 
 from .forms import PostForm
-from .mixins import NotNavigate
+from .mixins import NoNavbar
 from .models import Post
 
 
@@ -40,38 +40,14 @@ class PostList(ListView):
         return render(request, self.template_name, context={'posts': query})
 
 
-class PostDetail(NotNavigate, DetailView):
+class PostDetail(NoNavbar, DetailView):
     model = Post
     template_name = 'microblog/postDetail.html'
     context_object_name = 'post'
     slug_url_kwarg = 'slug'
 
 
-class PostCreate(NotNavigate, LoginRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'microblog/postCreate.html'
-
-
-    def post(self, request, *args, **kwargs):
-        """ Переопределенный метод клааса CreateView для отправки сообщения об
-        ошибки валидации формы.
-        """
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            messages.error('Некорректные данные в форме!')
-            return self.form_invalid(form)
-
-
-class PostUpdate(NotNavigate, LoginRequiredMixin, UpdateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'microblog/postUpdate.html'
-
-
-class PostDelete(NotNavigate, LoginRequiredMixin, DeleteView):
+class PostDelete(NoNavbar, LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'microblog/postDelete.html'
     context_object_name = 'post'
