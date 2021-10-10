@@ -1,11 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
-from django.views.generic import (View, ListView, CreateView, UpdateView, DeleteView, DetailView)
+from django.views.generic import View, ListView,  DeleteView, DetailView
 
-from .forms import PostForm
 from .mixins import NoNavbar
 from .models import Post
 
@@ -38,6 +36,11 @@ class PostList(ListView):
             Q(title__icontains=search) | Q(tags__name=search)
         )
         return render(request, self.template_name, context={'posts': query})
+
+
+class PostsByTagsList(PostList):
+    def get_queryset(self):
+        return Post.objects.filter(is_published=True, tags__name=self.kwargs['name']).all()
 
 
 class PostDetail(NoNavbar, DetailView):

@@ -17,7 +17,9 @@
 
 
 {% block main %}
-<div class="container mt-4">
+<div class="container mt-1">
+  {% include 'microblog/inc/_tagsList.html' %}
+<div class="mt-2"></div>
 {% for post in posts %}
 <div class="card text-white bg-dark border border-white">
   <div class="card-header">

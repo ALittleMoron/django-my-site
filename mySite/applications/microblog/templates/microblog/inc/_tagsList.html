@@ -1,0 +1,8 @@
+{% load taggitTags %}
+{% get_most_popular_tags as tags %}
+
+{% for tag, count in tags %}
+<span class='badge bg-danger'>
+<a style='text-decoration: none;' class='text-white' href="{% url 'microblog/postTags' name=tag.name %}">{{ tag.name }} </a> {{count}}
+</span>
+{% endfor %}
