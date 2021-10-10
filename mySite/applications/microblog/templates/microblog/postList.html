@@ -5,7 +5,7 @@
     <div class="align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 {% with url_name=request.resolver_match.url_name %}
-    {% if url_name == 'microblog/postList' %}
+    {% if 'postList' in url_name or 'postTags' in url_name %}
     <a href="{% url 'admin:microblog_post_add' %}" class="nav-link text-white hovered" style='display: block;'>Написать новость</a>
     {% endif %}
 {% endwith %}
