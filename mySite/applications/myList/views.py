@@ -3,14 +3,12 @@ from typing import List
 from django.shortcuts import redirect, render
 from django.views.generic.list import ListView
 
+from .models import Film, Series
+
 
 def random_redirect(request):
-    to = ('anime/', 'book/', 'film/', 'game/')
+    to = ('series/', 'book/', 'film/', 'game/')
     return redirect(choice(to))
-
-
-class AnimeList(ListView):
-    pass
 
 
 class BookList(ListView):
@@ -18,7 +16,13 @@ class BookList(ListView):
 
 
 class FilmList(ListView):
-    pass
+    template_name = 'myList/films.html'
+    queryset = Film.objects.all()
+
+
+class SeriesList(ListView):
+    template_name = 'myList/series.html'
+    queryset = Series.objects.all()
 
 
 class GameList(ListView):
