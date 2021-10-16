@@ -3,11 +3,12 @@ from django.contrib import admin
 from .models import Film, Series
 
 class CommonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'native_name', 'rating', 'recomend_to_watch')
+    list_display = ('id', 'name', 'native_name', 'rating', 'i_recommend')
     list_display_links = ('id', 'name', 'native_name')
     search_fields = ('name', 'native_name')
-    list_filter = ('recomend_to_watch', 'rating')
+    list_filter = ('i_recommend', 'rating')
     prepopulated_fields = {'slug': ('name',)}
+
 
 class FilmAdmin(CommonAdmin):
     pass

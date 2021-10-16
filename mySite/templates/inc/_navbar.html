@@ -5,7 +5,7 @@
         <a href="{% url 'homePage' %}" class="nav-link px-2 text-white hovered {% if url_name == 'homePage' %}current{% endif %}">Домашняя</a></li> .
         <li><a href="{% url 'microblog/postList' %}" class="nav-link px-2 text-white hovered {% if 'microblog' in url_name %}current{% endif %}">Микроблог</a></li> .
         <li><a href="{% url 'resume' %}" class="nav-link px-2 text-white hovered {% if 'resume' in url_name %}current{% endif %}">Резюме</a></li> .
-        <li><a href="{% url 'myList/randomRedirect' %}" class="nav-link px-2 text-white hovered {% if url_name == 'myList/randomRedirect' %}current{% endif %}">Библиотека</a></li>
+        <li><a href="{% url 'myList/randomRedirect' %}" class="nav-link px-2 text-white hovered {% if 'myList' in url_name %}current{% endif %}">Библиотека</a></li>
         {% if user.is_superuser %}
         . <li><a href="{% url 'admin:index' %}" class="nav-link px-2 text-white hovered">Админка</a></li>
         {% endif %}

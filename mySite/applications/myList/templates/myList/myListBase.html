@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block navigate %}
+  {{ block.super }}
+  {% include 'myList/inc/listNav.html' %}
+  {% block search %}
+    {% include 'microblog/inc/_searchbar.html' %}
+  {% endblock search %}
+{% endblock navigate %}

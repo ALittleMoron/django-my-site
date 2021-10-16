@@ -25,7 +25,7 @@ class CommonInfo(models.Model):
     opinion = models.TextField(verbose_name="Мое мнение")
     slug = models.SlugField(max_length=160, null=True, verbose_name='Слаг')
     rating = models.IntegerField(default=0, choices=RatingChoices, verbose_name='Оценка')
-    recomend_to_watch = models.BooleanField(default=False, verbose_name='Рекомендую к ознакомлению')
+    i_recommend = models.BooleanField(default=False, verbose_name='Рекомендую к ознакомлению')
     url = models.URLField(null=True, blank=True, verbose_name='Ссылка на ознакомление')
     
     class Meta:
@@ -36,7 +36,7 @@ class Film(CommonInfo):
     is_anime = models.BooleanField(default=False, verbose_name='Аниме')
 
     def __str__(self) -> str:
-        return self.name
+        return f'<{self.__class__.__name__}: {self.name}>'
 
     class Meta:
         verbose_name = "Фильм"
@@ -48,7 +48,7 @@ class Series(CommonInfo):
     is_anime = models.BooleanField(default=False, verbose_name='Аниме')
 
     def __str__(self) -> str:
-        return self.name
+        return f'<{self.__class__.__name__}: {self.name}>'
 
     class Meta:
         verbose_name = "Сериал"
@@ -56,10 +56,38 @@ class Series(CommonInfo):
         ordering = ['rating']
 
 
-# class VideoGame(CommonInfo):
-#     pass
+class VideoGame(CommonInfo):
+    def __str__(self) -> str:
+        return f'<{self.__class__.__name__}: {self.name}>'
+    
+    class Meta:
+        verbose_name = "Видео-игра"
+        verbose_name_plural = "Видео-игры"
+        ordering = ['rating']
 
 
+class Book(CommonInfo):
+    BOOK_TYPES = [
+        ('NO_TYPE', 'Не указано'),
+        ('DEV', 'Разработка'),
+        ('FICTION', 'Художественная литература'),
+        ('GUIDE', 'Справочник'),
+        ('OTHER', 'Другое')
+    ]
+    book_type = models.CharField(
+        max_length=100, choices=BOOK_TYPES, default='NO_TYPE', verbose_name='Тип книги')
+    
+    def __str__(self) -> str:
+        return f'<{self.__class__.__name__}: {self.name}>'
+    
+    class Meta:
+        verbose_name = "Книга"
+        verbose_name_plural = "Книги"
+        ordering = ['rating']
+
+
+@receiver(pre_save, sender=VideoGame)
+@receiver(pre_save, sender=Book)
 @receiver(pre_save, sender=Film)
 @receiver(pre_save, sender=Series)
 def add_slug(sender, instance, *args, **kwargs):
