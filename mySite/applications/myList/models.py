@@ -27,6 +27,7 @@ class CommonInfo(models.Model):
     rating = models.IntegerField(default=0, choices=RatingChoices, verbose_name='Оценка')
     i_recommend = models.BooleanField(default=False, verbose_name='Рекомендую к ознакомлению')
     url = models.URLField(null=True, blank=True, verbose_name='Ссылка на ознакомление')
+    poster = models.ImageField(blank=True, null=True, upload_to="uploads/%Y/%m/%d", verbose_name="Постер")
     
     class Meta:
         abstract = True
