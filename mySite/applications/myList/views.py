@@ -1,9 +1,8 @@
 from random import choice
-from typing import List
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.views.generic.list import ListView
 
-from .models import Film, Series
+from .models import Product
 
 
 def random_redirect(request):
@@ -11,19 +10,22 @@ def random_redirect(request):
     return redirect(choice(to))
 
 
-class BookList(ListView):
-    pass
+class MyModelsListView(ListView):
+    template_name = 'myList/myList.html'
+    context_object_name = 'list'
 
 
-class FilmList(ListView):
-    template_name = 'myList/films.html'
-    queryset = Film.objects.all()
+class BookList(MyModelsListView):
+    queryset = Product.objects.filter(product_type='book')
 
 
-class SeriesList(ListView):
-    template_name = 'myList/series.html'
-    queryset = Series.objects.all()
+class FilmList(MyModelsListView):
+    queryset = Product.objects.filter(product_type='film')
 
 
-class GameList(ListView):
-    pass
+class SeriesList(MyModelsListView):
+    queryset = Product.objects.filter(product_type='series')
+
+
+class GameList(MyModelsListView):
+    queryset = Product.objects.filter(product_type='game')

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Film, Series
+from .models import Product
 
 class CommonAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'native_name', 'rating', 'i_recommend')
@@ -9,14 +9,4 @@ class CommonAdmin(admin.ModelAdmin):
     list_filter = ('i_recommend', 'rating')
     prepopulated_fields = {'slug': ('name',)}
 
-
-class FilmAdmin(CommonAdmin):
-    pass
-
-
-class SeriesAdmin(CommonAdmin):
-    pass
-
-
-admin.site.register(Film, FilmAdmin)
-admin.site.register(Series, SeriesAdmin)
+admin.site.register(Product, CommonAdmin)
