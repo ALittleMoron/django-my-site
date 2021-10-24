@@ -1,3 +1,7 @@
 .hovered:hover {
-    color: #e76161 !important
+    color: #e76161 !important;
+}
+
+.hoveredReverse:hover{
+    color: #fff !important;
 }

@@ -1,10 +1,8 @@
 {% with url_name=request.resolver_match.url_name %}
-{% if user.is_superuser %}
     <div class="align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <a href="{% url 'resume' %}" class="nav-link text-white hovered {% if url_name == 'resume' %}current{% endif %}" style='display: block;'>Обо мне</a> .
         <a href="{% url 'resume/gitHubProjects' %}" class="nav-link text-white hovered {% if url_name == 'resume/gitHubProjects' %}current{% endif %}" style='display: block;'>GitHub проекта</a> 
       </ul>
     </div>
-{% endif %}
 {% endwith %}
