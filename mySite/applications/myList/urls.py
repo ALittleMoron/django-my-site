@@ -1,12 +1,10 @@
 from django.urls import path
 
-from .views import random_redirect, SeriesList, BookList, FilmList, GameList
+from .views import random_redirect, ProductDetail, ProductListView
 
 
 urlpatterns = [
     path('', random_redirect, name='myList/randomRedirect'),
-    path('series/', SeriesList.as_view(), name='myList/seriesList'),
-    path('book/', BookList.as_view(), name='myList/booksList'),
-    path('film/', FilmList.as_view(), name='myList/filmList'),
-    path('game/', GameList.as_view(), name='myList/gameList'),
+    path('<str:product>/', ProductListView.as_view(), name='myList/choose'),
+    path('product-detail/<slug:slug>', ProductDetail.as_view(), name='myList/productDetail'),
 ]

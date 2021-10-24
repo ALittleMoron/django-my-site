@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.fields import BooleanField
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.urls import reverse
 from slugify import slugify
 
 
@@ -28,8 +29,8 @@ class Product(models.Model):
     
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     native_name = models.CharField(max_length=150, unique=True, verbose_name='Название на родном языке')
-    description = models.TextField(verbose_name='Описание')
-    opinion = models.TextField(verbose_name="Мое мнение")
+    description = models.TextField(null=True, blank=True, verbose_name='Описание')
+    opinion = models.TextField(null=True, blank=True, verbose_name="Мое мнение")
     slug = models.SlugField(max_length=160, null=True, verbose_name='Слаг')
     rating = models.IntegerField(default=0, choices=RATING_CHOICES, verbose_name='Оценка')
     i_recommend = models.BooleanField(default=False, verbose_name='Рекомендую к ознакомлению')
@@ -37,6 +38,9 @@ class Product(models.Model):
     poster = models.ImageField(blank=True, null=True, upload_to="uploads/%Y/%m/%d", verbose_name="Постер")
     product_type = models.CharField(max_length=10, blank=False, null=False, choices=PRODUCT_TYPE, verbose_name='Тип произведения')
     is_anime = models.BooleanField(default=False, verbose_name='Аниме')
+
+    def get_absolute_url(self):
+        return reverse("myList/productDetail", kwargs={"slug": self.slug})
 
     class Meta:
         verbose_name = "Произведение"

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container mt-5">
+
+  {% if user.is_superuser %}
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center fs-3 border">
+        <li>
+            <a href="{{ request.META.HTTP_REFERER }}" class="nav-link mx-1 text-white hovered">Назад</a>
+        </li>
+        <li>
+            <a href="#" class="nav-link mx-1 text-white hovered">Удалить</a>
+        </li>
+        <li>
+            <a href="#" class="nav-link mx-1 text-white hovered">Обновить</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:index' %}" class="nav-link mx-1 text-white hovered">Админка</a>
+        </li>
+    </ul>
+  {% else %}
+    <ul class="nav mb-2 fs-3">
+        <li>
+            <a href="{{ request.META.HTTP_REFERER }}" class="nav-link mx-1 text-white hovered">Назад</a>
+        </li>
+    </ul>
+  {% endif %}
+
+    <div class="row">
+        <article>
+            <header class="mb-4 mt-2">
+                <h1 class="fw-bolder mb-1 text-white">{{post.title}}</h1>
+
+                {% comment %} {% if post.is_published %}
+                    <div class="text-muted fst-italic mb-2 text-white">Опубликовано {{post.published_at}} мной лично.</div>
+                {% else %}
+                    <div class="text-muted fst-italic mb-2 text-white">Ещё не опубликовано.</div>
+                {% endif %} {% endcomment %}
+
+            </header>
+            <section class="text-white">
+                <p class='text-white'>{{post.text|safe}}</p>
+            </section>
+        </article>
+    </div>
+</div>
+{% endblock main %}
