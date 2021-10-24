@@ -18,8 +18,7 @@
           rel="stylesheet"
           type="text/css"
           href="{% static 'other/link.css' %}">
-        {% block extrastyle%}
-        {% endblock %}
+        {% block extrastyle%}{% endblock %}
         <link rel='icon' href="{% static 'favicon.ico' %}" type='image/x-icon'>
         <title>{% block title %} {{ title }} {% endblock title %}</title>
     </head>
@@ -36,13 +35,11 @@
     {% endif %}
     </div>
     
-
     <div>
         {% block main %}
         
         {% endblock %}
     </div>
-
 
     <div>
         {% block footer %}
@@ -51,5 +48,6 @@
     </div>
     
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    {% block extra_scripts %}{% endblock extra_scripts %}
     </body>
 </html>
