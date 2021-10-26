@@ -35,7 +35,7 @@ class Product(models.Model):
     rating = models.IntegerField(default=0, choices=RATING_CHOICES, verbose_name='Оценка')
     i_recommend = models.BooleanField(default=False, verbose_name='Рекомендую к ознакомлению')
     url = models.URLField(null=True, blank=True, verbose_name='Ссылка на ознакомление')
-    poster = models.ImageField(blank=True, null=True, upload_to="uploads/%Y/%m/%d", verbose_name="Постер")
+    poster = models.ImageField(blank=True, null=True, upload_to="posters/%Y/%m/%d", verbose_name="Постер")
     product_type = models.CharField(max_length=10, blank=False, null=False, choices=PRODUCT_TYPE, verbose_name='Тип произведения')
     is_anime = models.BooleanField(default=False, verbose_name='Аниме')
 
