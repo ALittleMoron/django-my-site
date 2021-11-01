@@ -23,6 +23,7 @@ class Product(models.Model):
     PRODUCT_TYPE = [
         ('film', 'Фильм'),
         ('series', 'Сериал'),
+        ('anime', 'Аниме'),
         ('game', 'Игра'),
         ('book', 'Книга')
     ]
@@ -37,10 +38,12 @@ class Product(models.Model):
     url = models.URLField(null=True, blank=True, verbose_name='Ссылка на ознакомление')
     poster = models.ImageField(blank=True, null=True, upload_to="posters/%Y/%m/%d", verbose_name="Постер")
     product_type = models.CharField(max_length=10, blank=False, null=False, choices=PRODUCT_TYPE, verbose_name='Тип произведения')
-    is_anime = models.BooleanField(default=False, verbose_name='Аниме')
 
     def get_absolute_url(self):
         return reverse("myList/productDetail", kwargs={"slug": self.slug})
+    
+    def __str__(self) -> str:
+        return f'Тайтл <{self.name} - {self.product_type}>'
 
     class Meta:
         verbose_name = "Произведение"

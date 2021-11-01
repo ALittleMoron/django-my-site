@@ -1,12 +1,10 @@
-    {% if request.path not in '/resume/' %}
-      <form method="POST" action="{% url 'microblog/postList' %}">
-        {% csrf_token %}
-        <input
-          type="search"
-          name="search"
-          class="form-control form-control-dark"
-          placeholder="Найти..."
-          aria-label="Search"
-        />
-      </form> 
-     {%endif%}
+<form method="POST" action="{% url 'microblog/postList' %}">
+{% csrf_token %}
+<input
+  type="search"
+  name="search"
+  class="form-control form-control-dark"
+  placeholder="Найти..."
+  aria-label="Search"
+/>
+</form> 

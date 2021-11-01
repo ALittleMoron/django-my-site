@@ -5,6 +5,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
 
 from .models import Product
@@ -33,3 +34,10 @@ class ProductDetail(NoNavbar, DetailView):
     context_object_name = 'product'
     template_name = 'myList/productDetail.html'
     slug_url_kwarg = 'slug'
+
+
+class ProductDelete(NoNavbar, DeleteView):
+    model = Product
+    template_name = 'myList/productDelete.html'
+    context_object_name = 'product'
+    success_url = '/myList/'

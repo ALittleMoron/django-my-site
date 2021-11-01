@@ -4,23 +4,21 @@
 {% block navigate %}
   {{ block.super }}
     {% include 'myList/inc/listNav.html' %}
-  {% block search %}
-    {% include 'microblog/inc/_searchbar.html' %}
-  {% endblock search %}
+  {% block search %}{% endblock search %}
 {% endblock navigate %}
 
 
 {% block main %}
 <div class="container">
     <div class='row mt-2'>
-        <div class="col-md-10">
+        <div class="col-md-9">
             <table class='table table-dark table-stripes'>
                 <thead>
                     <tr>
                       <th scope="col">№</th>
                       <th scope="col">Название</th>
-                      <th scope="col">Оценка</th>
-                      <th scope="col">Я рекомендую</th>
+                      <th class='text-center' scope="col">Оценка</th>
+                      <th class='text-center' scope="col">Советую?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,16 +28,21 @@
                       <td>
                         <a href="{% url 'myList/productDetail' list_ele.slug %}" class="hoveredReverse current ">{{list_ele.name}}</a>
                       </td>
-                      <td>{{list_ele.rating}}</td>
-                      <td>{{list_ele.i_recommed}}</td>
+                      <td class='text-center'>{{list_ele.rating}}</td>
+                      <td class='text-center'>{% if list_ele.i_recommend %}Да{% else %}Нет{%endif%}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             {% include 'myList/inc/dynamicFiltersAndSearch.html' %}
         </div>
     </div>
 </div>
 {% endblock main %}
+
+
+{% block extra_scripts %}
+
+{% endblock extra_scripts %}
