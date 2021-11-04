@@ -5,3 +5,14 @@
 .hoveredReverse:hover{
     color: #fff !important;
 }
+
+.form-check-input:checked {
+    background-color: #e76161 !important;
+    border-color: #722424 !important;
+}
+
+.form-check-input:focus {
+    border-color: #722424 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(175 72 72 / 25%) !important;
+}
