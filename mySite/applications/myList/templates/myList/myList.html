@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block navigate %}
@@ -44,5 +45,5 @@
 
 
 {% block extra_scripts %}
-
+    <script src="{% static 'other/filterRecommend.js' %}"></script>
 {% endblock extra_scripts %}

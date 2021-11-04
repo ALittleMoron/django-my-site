@@ -29,8 +29,8 @@
   {% endif %}
     <div class="row text-white">
         <div class="mx-auto">
-          <h1 class="current">{{ product.name }} / {{product.native_name}}</h1>
-          <p class="text-muted">{{ product.product_type|product_type_verbose }} {% if product.product_type == 'anime' %}/ Анимешное{% endif %}</p>
+          <h1 class="text-white">{{ product.name }} / {{product.native_name}}</h1>
+          <p class="current">{{ product.product_type|product_type_verbose }} {% if product.i_recommend %} <span class="text-white">/</span> &#10003; я рекомендую{% endif %}</p>
         </div>
         <div class="row pb-5">
           <div class="col-md-3">
@@ -40,11 +40,19 @@
           </div>
           <div class="col-md-9">
             <h5 class="mt-2">Описание:</h5>
-            <p class='text-muted mt-1'>{{ product.description }}</p>
+            <p class='mt-1' align='justify'>{{ product.description|safe }}</p>
             <h5 class="mt-2">Мое мнение:</h5>
-            <p class="text-muted mt-1">{{product.opinion}}</p>
+            <p class="mt-1" align='justify'>{{product.opinion|safe}}</p>
           </div>
         </div>
     </div>
 </div>
 {% endblock main %}
+
+
+{% block extra_scripts %}
+<script>
+  let colDiv = document.querySelector('.col-md-9')
+  colDiv.querySelectorAll('p').forEach(e => e.className += ' text-muted'); 
+</script>
+{% endblock extra_scripts %}
