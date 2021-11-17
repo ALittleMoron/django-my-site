@@ -6,6 +6,10 @@
     color: #fff !important;
 }
 
+.no-underline {
+    text-decoration: none !important;
+}
+
 .form-check-input:checked {
     background-color: #e76161 !important;
     border-color: #722424 !important;

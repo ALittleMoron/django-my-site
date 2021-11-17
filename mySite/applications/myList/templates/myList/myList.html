@@ -9,6 +9,14 @@
 {% endblock navigate %}
 
 
+{% block extrastyle %}
+    <link
+      rel="stylesheet"
+      type='text/css'
+      href="{% static 'other/tableRewrite.css' %}">
+{% endblock extrastyle %}
+
+
 {% block main %}
 <div class="container">
     <div class='row mt-2'>
@@ -16,7 +24,7 @@
             <table class='table table-dark table-stripes'>
                 <thead>
                     <tr>
-                      <th scope="col">№</th>
+                      <th scope="col" class='text-center'>№</th>
                       <th scope="col">Название</th>
                       <th class='text-center' scope="col">Оценка</th>
                       <th class='text-center' scope="col">Советую?</th>
@@ -25,9 +33,9 @@
                 <tbody>
                 {% for list_ele in list %}
                     <tr>
-                      <th scope='row'>{{forloop.counter}}</th>
+                      <th scope='row' class='text-center'>{{forloop.counter}}</th>
                       <td>
-                        <a href="{% url 'myList/productDetail' list_ele.slug %}" class="hoveredReverse current ">{{list_ele.name}}</a>
+                        <a href="{% url 'myList/productDetail' list_ele.slug %}" class="hoveredReverse current no-underline">{{list_ele.name}}</a>
                       </td>
                       <td class='text-center'>{{list_ele.rating}}</td>
                       <td class='text-center'>{% if list_ele.i_recommend %}Да{% else %}Нет{%endif%}</td>
