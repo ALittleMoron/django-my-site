@@ -39,8 +39,8 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 необходимо запустить последовательно следующие команды в консоли:
 
 ```bash
-git clone git@github.com:ALittleMoron/django_mySite.git
-cd django_mySite
+git clone git@github.com:ALittleMoron/django-my-site.git
+cd django-my-site
 poetry install
 poetry shell
 ```
