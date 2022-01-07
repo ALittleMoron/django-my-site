@@ -18,17 +18,6 @@ class Post(models.Model):
     published_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата публикации")
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано?")
     tags = TaggableManager()
-    
-    def save(self, *args, **kwargs):
-        if self.is_published and self.published_at is None:
-            self.published_at = timezone.now()
-        elif not self.is_published and self.published_at is not None:
-            self.published_at = None
-
-        if not self.slug:
-            self.slug = slugify(self.title)
-        
-        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("microblog/postDetail", kwargs={"slug": self.slug})

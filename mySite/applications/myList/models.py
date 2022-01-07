@@ -1,8 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 from django.urls import reverse
-from slugify import slugify
 
 
 class Product(models.Model):
@@ -63,12 +60,3 @@ class Product(models.Model):
         verbose_name = "Произведение"
         verbose_name_plural = "Произведения"
         ordering = ["-rating"]
-
-
-@receiver(pre_save, sender=Product)
-def add_slug(sender, instance, *args, **kwargs):
-    """Обычный сигнал для добавления слага перед сохранением
-
-    Не использую стандартный встроенный в django slugify, потому что он не работает с кириллицей.
-    """
-    instance.slug = slugify(instance.name)
