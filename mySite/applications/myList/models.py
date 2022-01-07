@@ -16,12 +16,22 @@ class Product(models.Model):
         (9, "Великолепно"),
         (10, "Шедевр"),
     ]
+    
     PRODUCT_TYPE = [
         ("film", "Фильм"),
         ("series", "Сериал"),
         ("anime", "Аниме"),
         ("game", "Игра"),
         ("book", "Книга"),
+    ]
+
+    PRODUCT_STATUS = [
+        ('pn', 'Запланировано'),
+        ('ga', 'В процессе (Ознакомляюсь)'),
+        ('rv', 'Повтор'),
+        ('ac', 'Завершено'),
+        ('ab', 'Брошено'),
+        ('pp', 'Отложено'),
     ]
 
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
@@ -31,13 +41,25 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     opinion = models.TextField(null=True, blank=True, verbose_name="Мое мнение")
     slug = models.SlugField(max_length=160, null=True, verbose_name="Слаг")
+    status = models.CharField(
+        max_length=3,
+        blank=False,
+        null=False,
+        choices=PRODUCT_STATUS,
+        default='ac',
+        verbose_name='Статус',
+    )
+    review_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Число повторных ознакомлений',
+    )
     rating = models.IntegerField(
         default=0, choices=RATING_CHOICES, verbose_name="Оценка"
     )
     i_recommend = models.BooleanField(
-        default=False, verbose_name="Рекомендую к ознакомлению"
+        default=False, verbose_name="Рекомендую"
     )
-    url = models.URLField(null=True, blank=True, verbose_name="Ссылка на ознакомление")
+    url = models.URLField(null=True, blank=True, verbose_name="Ссылка")
     poster = models.ImageField(
         blank=True, null=True, upload_to="posters/%Y/%m/%d", verbose_name="Постер"
     )
