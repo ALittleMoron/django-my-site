@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'microblog',
     'resume',
     'myList',
+
+    'django_cleanup.apps.CleanupConfig', # В таком порядке по документации пакета.
 ]
 
 MIDDLEWARE = [
@@ -70,7 +72,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'mySite/templates')
+            os.path.join(BASE_DIR, 'mySite', 'templates')
             ],
         'APP_DIRS': True,
         'OPTIONS': {

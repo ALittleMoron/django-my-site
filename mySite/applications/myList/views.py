@@ -25,7 +25,7 @@ class ProductListView(ListView):
         product = kwargs.get('product')
         if product not in {'film', 'game', 'series', 'book'}:
             raise Http404
-        self.queryset = Product.objects.filter(product_type=product, is_published=True)
+        self.queryset = Product.objects.filter(product_type=product)
         return super().get(request, *args, **kwargs)
 
 
