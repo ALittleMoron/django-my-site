@@ -1,39 +1,57 @@
+from itertools import groupby
+from operator import attrgetter
+
 from django.db import models
 from django.urls import reverse
 
 
+RATING_CHOICES = [
+    (0, "Не указан"),
+    (1, "Хуже некуда"),
+    (2, "Ужасно"),
+    (3, "Очень плохо"),
+    (4, "Плохо"),
+    (5, "Более-менее"),
+    (6, "Нормально"),
+    (7, "Хорошо"),
+    (8, "Очень хорошо"),
+    (9, "Великолепно"),
+    (10, "Шедевр"),
+]
+
+PRODUCT_TYPE = [
+    ("film", "Фильм"),
+    ("series", "Сериал"),
+    ("anime", "Аниме"),
+    ("game", "Игра"),
+    ("book", "Книга"),
+]
+
+PRODUCT_STATUS = [
+    ('pn', 'Запланировано'),
+    ('ga', 'В процессе (Ознакомляюсь)'),
+    ('rv', 'Повтор'),
+    ('ac', 'Завершено'),
+    ('ab', 'Брошено'),
+    ('pp', 'Отложено'),
+]
+
+
+class ExtendedManager(models.Manager):
+    def separated_by_status(self, product_type):
+        query = super().get_queryset().filter(product_type=product_type).order_by('status')
+        dict_ = {
+            k: list(vs)
+            for k, vs in groupby(query, attrgetter('status'))
+        }
+        return {
+            status1: dict_.get(status0, [])
+            for status0, status1 in PRODUCT_STATUS
+        }
+
+
 class Product(models.Model):
-    RATING_CHOICES = [
-        (0, "Не указан"),
-        (1, "Хуже некуда"),
-        (2, "Ужасно"),
-        (3, "Очень плохо"),
-        (4, "Плохо"),
-        (5, "Более-менее"),
-        (6, "Нормально"),
-        (7, "Хорошо"),
-        (8, "Очень хорошо"),
-        (9, "Великолепно"),
-        (10, "Шедевр"),
-    ]
-    
-    PRODUCT_TYPE = [
-        ("film", "Фильм"),
-        ("series", "Сериал"),
-        ("anime", "Аниме"),
-        ("game", "Игра"),
-        ("book", "Книга"),
-    ]
-
-    PRODUCT_STATUS = [
-        ('pn', 'Запланировано'),
-        ('ga', 'В процессе (Ознакомляюсь)'),
-        ('rv', 'Повтор'),
-        ('ac', 'Завершено'),
-        ('ab', 'Брошено'),
-        ('pp', 'Отложено'),
-    ]
-
+    objects = ExtendedManager()
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
     native_name = models.CharField(
         max_length=150, unique=True, verbose_name="Название на родном языке"
