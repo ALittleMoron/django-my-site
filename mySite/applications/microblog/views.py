@@ -22,7 +22,7 @@ class HomePage(View):
 
 class PostList(ListView):
     template_name = 'microblog/postList.html'
-    queryset = Post.objects.filter(is_published=True).all()
+    model = Post
     context_object_name = 'posts'
     paginate_by = 12
 
@@ -32,7 +32,6 @@ class PostList(ListView):
         """
         search = request.POST.get('search')
         query = Post.objects.filter(
-            Q(is_published=True),
             Q(title__icontains=search) | Q(tags__name=search)
         )
         return render(request, self.template_name, context={'posts': query})
@@ -40,7 +39,7 @@ class PostList(ListView):
 
 class PostsByTagsList(PostList):
     def get_queryset(self):
-        return Post.objects.filter(is_published=True, tags__name=self.kwargs['name']).all()
+        return Post.objects.filter(tags__name=self.kwargs['name'])
 
 
 class PostDetail(NoNavbar, DetailView):

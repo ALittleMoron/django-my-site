@@ -1,9 +1,15 @@
 {% load taggitTags %}
-{% get_most_popular_tags as tags %}
+{% load cache %}
 
-{% for tag, count in tags %}
-<span class='badge bg-danger'>
-<a style='text-decoration: none;' class='text-white' href="{% url 'microblog/postTags' name=tag.name %}">{{ tag.name }} </a>
-<span class="badge bg-dark">{{count}}</span>
-</span>
-{% endfor %}
+{% cache 120 tagger %}
+
+  {% get_most_popular_tags as tags %}
+
+  {% for tag, count in tags %}
+    <span class='badge bg-danger'>
+      <a style='text-decoration: none;' class='text-white' href="{% url 'microblog/postTags' name=tag.name %}">{{ tag.name }} </a>
+      <span class="badge bg-dark">{{count}}</span>
+    </span>
+  {% endfor %}
+
+  {% endcache %}
