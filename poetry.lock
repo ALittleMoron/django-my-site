@@ -136,6 +136,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "django-nested-inline"
+version = "0.4.4"
+description = "Recursive nesting of inline forms for Django Admin"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "django-taggit"
 version = "1.5.1"
 description = "django-taggit is a reusable Django application for simple tagging."
@@ -423,7 +431,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "aff3f11714450330b68dc73ba0abd47d4df8e1a3dc57a952bda059b7baeb3f57"
+content-hash = "583fda531ce546aef3d2a7d8eb795f572a03c02888b24919462477ae2ace61f8"
 
 [metadata.files]
 appnope = [
@@ -473,6 +481,10 @@ django-debug-toolbar = [
 django-js-asset = [
     {file = "django-js-asset-1.2.2.tar.gz", hash = "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"},
     {file = "django_js_asset-1.2.2-py2.py3-none-any.whl", hash = "sha256:8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd"},
+]
+django-nested-inline = [
+    {file = "django-nested-inline-0.4.4.tar.gz", hash = "sha256:ef1c0aa5c162073fd03ab515a8550b76c51c4a2eb5923ebdaffb8125581c4775"},
+    {file = "django_nested_inline-0.4.4-py2.py3-none-any.whl", hash = "sha256:c8fcb2091c978ab58e474ad6711fed95c0d276673f973f5d57964a4e2b04ab31"},
 ]
 django-taggit = [
     {file = "django-taggit-1.5.1.tar.gz", hash = "sha256:e5bb62891f458d55332e36a32e19c08d20142c43f74bc5656c803f8af25c084a"},

@@ -9,7 +9,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
 
-from .models import Product
+from .models import Product, Rating, RatingItem
 from applications.microblog.mixins import NoNavbar
 
 
@@ -40,6 +40,15 @@ class ProductDetail(NoNavbar, DetailView):
     context_object_name = 'product'
     template_name = 'myList/productDetail.html'
     slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context.update(self.get_object().rating.avarage_rating_score)
+        
+        return context
+
+class RatingListView(NoNavbar, ListView):
+    model = ...
 
 
 class ProductDelete(NoNavbar, DeleteView):

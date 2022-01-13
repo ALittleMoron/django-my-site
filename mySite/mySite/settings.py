@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'debug_toolbar',
     'taggit',
+    'nested_inline',
     
     'microblog',
     'resume',
