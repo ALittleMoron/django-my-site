@@ -1,5 +1,3 @@
-from ckeditor.widgets import CKEditorWidget
-from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.html import format_html
@@ -7,6 +5,7 @@ from django.utils.translation import ngettext
 from django.templatetags.static import static
 from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin
 
+from .forms import RatingOnlyAdminForm, CKProductAdminForm
 from .models import Product, Rating, RatingItem
 
 
@@ -23,17 +22,8 @@ class RatingInline(NestedStackedInline):
     inlines = [RatingItemsInline, ]
 
 
-class CKProductAdminForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = '__all__'
-        widgets = {
-            'description': CKEditorWidget,
-            'opinion': CKEditorWidget
-        }
-
-
 class RatingOnlyAdmin(admin.ModelAdmin):
+    form = RatingOnlyAdminForm
     inlines = [RatingItemsInline,]
 
 

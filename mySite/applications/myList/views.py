@@ -47,8 +47,9 @@ class ProductDetail(NoNavbar, DetailView):
         
         return context
 
+
 class RatingListView(NoNavbar, ListView):
-    model = ...
+    model = Rating
 
 
 class ProductDelete(NoNavbar, DeleteView):

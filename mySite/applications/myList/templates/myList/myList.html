@@ -42,7 +42,7 @@
                       <td>
                         <a href="{% url 'myList/productDetail' q_set_ele.slug %}" class="hoveredReverse current no-underline">{{q_set_ele.name}}</a>
                       </td>
-                      <td class='text-center'>{{q_set_ele.rating}}</td>
+                      <td class='text-center'></td>
                       <td class='text-center'>{% if q_set_ele.i_recommend %}Да{% else %}Нет{%endif%}</td>
                     </tr>
                   {% endif %}
