@@ -4,6 +4,6 @@
 {% block navigate %}
   {{ block.super }}
   {% block search %}
-    {% include 'microblog/inc/_searchbar.html' %}
+    <div class="container">{% include 'microblog/inc/_searchbar.html' %}</div>
   {% endblock search %}
 {% endblock navigate %}

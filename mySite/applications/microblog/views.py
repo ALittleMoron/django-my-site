@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.views.generic import View, ListView,  DeleteView, DetailView
 
-from .mixins import NoNavbar
 from .models import Post
 
 
@@ -42,14 +41,14 @@ class PostsByTagsList(PostList):
         return Post.objects.filter(tags__name=self.kwargs['name'])
 
 
-class PostDetail(NoNavbar, DetailView):
+class PostDetail(DetailView):
     model = Post
     template_name = 'microblog/postDetail.html'
     context_object_name = 'post'
     slug_url_kwarg = 'slug'
 
 
-class PostDelete(NoNavbar, LoginRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'microblog/postDelete.html'
     context_object_name = 'post'

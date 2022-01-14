@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load humanize_data %}
+{% load static %}
+
+
+{% block navigate %}{% endblock navigate %}
+
+{% block main %}
+  <div class="container mt-2">
+  <ul class="nav mb-2 fs-3">
+    <li>
+      <a href="" class="nav-link mx-1 text-white hovered">← Назад</a>
+    </li>
+  </ul>
+    {% for ratingItem in ratingItems %}
+    <div class="row">
+      <div class="col">
+        sss
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock main %}

@@ -27,13 +27,13 @@
     <body class="bg-dark">
     <div>
     {% if not notNavigate %}
+    {% block navigate %}
     <header class="p-3 text-white fs-4 border-bottom border-light">
       <div class="container">
-       {% block navigate %}
         {% include 'inc/_navbar.html' %}
-       {% endblock %}
       </div>
     </hearder>
+{% endblock %}
     {% endif %}
     </div>
     

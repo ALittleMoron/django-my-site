@@ -10,7 +10,6 @@ from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
 
 from .models import Product, Rating, RatingItem
-from applications.microblog.mixins import NoNavbar
 
 
 def random_redirect(request):
@@ -35,7 +34,7 @@ class ProductListView(ContextMixin, View):
         return render(request, self.template_name, context)
 
 
-class ProductDetail(NoNavbar, DetailView):
+class ProductDetail(DetailView):
     model = Product
     context_object_name = 'product'
     template_name = 'myList/productDetail.html'
@@ -48,11 +47,14 @@ class ProductDetail(NoNavbar, DetailView):
         return context
 
 
-class RatingListView(NoNavbar, ListView):
+class RatingListView(ListView):
     model = Rating
+    context_object_name = 'ratingItems'
+    template_name = 'myList/productDetailRating.html'
+    slug_url_kwarg = 'slug'
 
 
-class ProductDelete(NoNavbar, DeleteView):
+class ProductDelete(DeleteView):
     model = Product
     template_name = 'myList/productDelete.html'
     context_object_name = 'product'
