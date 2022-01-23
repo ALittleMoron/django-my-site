@@ -19,9 +19,8 @@ def random_redirect(request):
 
 class ProductListView(ContextMixin, View):
     template_name = 'myList/myList.html'
-    context_object_name = 'list'
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(self, request, *args: Any, **kwargs: Any):
         product = kwargs.get('product')
         verbosed = {'film': 'фильмов', 'game': 'игр', 'series': 'сериалов', 'book': 'книг'}
         if product not in verbosed:
@@ -59,3 +58,11 @@ class ProductDelete(DeleteView):
     template_name = 'myList/productDelete.html'
     context_object_name = 'product'
     success_url = '/myList/'
+
+
+class RatingSystem(View):
+    template_name = 'myList/ratingSystem.html'
+    http_method_names = ['get']
+    
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

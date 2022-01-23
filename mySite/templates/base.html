@@ -18,6 +18,7 @@
           rel="stylesheet"
           type="text/css"
           href="{% static 'other/link.css' %}">
+        <style>::selection{background-color: #ec4b4b ; color: white;}</style>
         {% block extrastyle%}{% endblock %}
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
@@ -26,15 +27,13 @@
     </head>
     <body class="bg-dark">
     <div>
-    {% if not notNavigate %}
     {% block navigate %}
     <header class="p-3 text-white fs-4 border-bottom border-light">
       <div class="container">
         {% include 'inc/_navbar.html' %}
       </div>
     </hearder>
-{% endblock %}
-    {% endif %}
+    {% endblock %}
     </div>
     
     <div>
