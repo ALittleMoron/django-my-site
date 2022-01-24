@@ -24,31 +24,33 @@
         <div class="col-md-9">
             {% for status_title, q_set in dict_queryset.items %}
             {% if q_set %}
-            <h5 class="text-white">{{status_title}}</h5>
-            <table class='table table-dark table-stripes'>
-                <thead>
-                    <tr>
-                      <th scope="col" class='text-center'>№&nbsp;</th>
-                      <th scope="col">Название</th>
-                      <th class='text-center' scope="col">&nbsp;Оценка&nbsp;</th>
-                      <th class='text-center' scope="col">&nbsp;Советую?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for q_set_ele in q_set %}
-                  {% if q_set_ele.is_published or request.user.is_staff or request.user.is_superuser %}
-                    <tr>
-                      <th scope='row' class='text-center'>{{forloop.counter}}</th>
-                      <td>
-                        <a href="{% url 'myList/productDetail' q_set_ele.slug %}" class="hoveredReverse current no-underline">{{q_set_ele.name}}</a>
-                      </td>
-                      <td class='text-center'></td>
-                      <td class='text-center'>{% if q_set_ele.i_recommend %}Да{% else %}Нет{%endif%}</td>
-                    </tr>
-                  {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
+            <div class='tblDiv'>
+                <h5 class="text-white">{{status_title}}</h5>
+                <table class='table table-dark table-stripes'>
+                    <thead>
+                        <tr>
+                          <th scope="col" class='text-center'>№&nbsp;</th>
+                          <th scope="col">Название</th>
+                          <th class='text-center' scope="col">&nbsp;Оценка&nbsp;</th>
+                          <th class='text-center' scope="col">&nbsp;Советую?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for q_set_ele in q_set %}
+                      {% if q_set_ele.is_published or request.user.is_staff or request.user.is_superuser %}
+                        <tr>
+                          <th scope='row' class='text-center'>{{forloop.counter}}</th>
+                          <td>
+                            <a href="{% url 'myList/productDetail' q_set_ele.slug %}" class="hoveredReverse current no-underline">{{q_set_ele.name}}</a>
+                          </td>
+                          <td class='text-center'></td>
+                          <td class='text-center'>{% if q_set_ele.i_recommend %}Да{% else %}Нет{%endif%}</td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             {% endif %}
             {% endfor %}
         </div>
