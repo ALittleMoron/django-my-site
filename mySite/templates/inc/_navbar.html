@@ -1,8 +1,6 @@
 {% with url_name=request.resolver_match.url_name %}
     <div class="align-items-center justify-content-center justify-content-lg-start ">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li>
-        <a href="{% url 'homePage' %}" class="nav-link px-2 text-white hovered {% if url_name == 'homePage' %}current{% endif %}">Домашняя</a></li> .
         <li><a href="{% url 'microblog/postList' %}" class="nav-link px-2 text-white hovered {% if 'microblog' in url_name %}current{% endif %}">Микроблог</a></li> .
         <li><a href="{% url 'resume' %}" class="nav-link px-2 text-white hovered {% if 'resume' in url_name %}current{% endif %}">Резюме</a></li> .
         <li><a href="{% url 'myList/randomRedirect' %}" class="nav-link px-2 text-white hovered {% if 'myList' in url_name %}current{% endif %}">Библиотека</a></li>

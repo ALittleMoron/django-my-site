@@ -2,21 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
-from django.views.generic import View, ListView,  DeleteView, DetailView
+from django.views.generic import ListView,  DeleteView, DetailView
 
 from .models import Post
-
-
-class HomePage(View):
-    """ Класс вывода домашней страницы.
-    
-    Особо ничего не делает. Только выводит приветственную страницу с навигацией по сайту.
-    """
-    http_method_names = ['get']
-    template_name = 'microblog/homePage.html'
-    
-    def get(self, request: HttpRequest) -> HttpResponse:
-        return render(request, self.template_name)
 
 
 class PostList(ListView):
