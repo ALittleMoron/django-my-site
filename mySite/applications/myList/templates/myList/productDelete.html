@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize_data %}
 
 {% block navigate %}{% endblock navigate %}
 
@@ -10,7 +10,7 @@
   <h2 class="text-center text-white mt-3">
     Вы собираетесь <span class="text-danger">удалить</span> пост "<i>{{product}}</i>"
   </h2>
-  <p class="text-center">Вы уверены, что хотите это сделать?</p>
+  <p class="text-center text-muted">Вы уверены, что хотите это сделать?</p>
   <div class="form-group">
     <form
       method="post"
@@ -19,7 +19,7 @@
       {% csrf_token %}
       <div class="row">
         <div class="col">
-          <a href="{% url 'myList/productDetail' product.slug %}" class="nav-link text-white fs-4 hovered">Назад</a>
+              <a href="{% url 'myList/productDetail' model_name=product|model_name slug=product.slug %}" class="nav-link text-white fs-4 hovered">Назад</a>
         </div>
         <div class="col">
           <button type="submit" class="btn btn-danger fs-4">Удалить</button>

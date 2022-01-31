@@ -1,22 +1,11 @@
 from django.urls import path
 
-from .views import (RatingSystem,
-                    random_redirect,
-                    ProductDetail,
-                    ProductListView,
-                    ProductDelete, 
-                    RatingListView)
+from .views import (ProductDeleteView, ProductDetailView)
 
 
 urlpatterns = [
-    path('', random_redirect, name='myList/randomRedirect'),
-    path('rating-system', RatingSystem.as_view(), name='myList/ratingSystem'),
-    path('<str:product>/', ProductListView.as_view(), name='myList/choose'),
-    path('product-detail/<slug:slug>', ProductDetail.as_view(), name='myList/productDetail'),
-    path(
-        'product-detail/<slug:slug>/rating-system',
-        RatingListView.as_view(),
-        name='myList/productDetailRating'
-    ),
-    path('product-detail/<slug:slug>/delete', ProductDelete.as_view(), name='myList/productDelete'),
+    # path('', random_redirect, name='myList/randomRedirect'),
+    # path('<str:model_name>/', ProductListView.as_view(), name='myList/choose'),
+    path('<str:model_name>/<slug:slug>', ProductDetailView.as_view(), name='myList/productDetail'),
+    path('<str:model_name>/<slug:slug>/delete', ProductDeleteView.as_view(), name='myList/productDelete'),
 ]

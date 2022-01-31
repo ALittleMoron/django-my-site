@@ -1,15 +1,24 @@
 from django import template
+from django.urls import reverse
 
-from myList.models import Product, PRODUCT_TYPE, RATING_CHOICES
+from rating.models import RATING_CHOICES
 
 
 register = template.Library()
 
 
-@register.filter
-def product_type_verbose(boundField):
-    return list(filter(lambda x: x[0] == boundField, PRODUCT_TYPE))[0][1]
+@register.simple_tag
+def url_to_edit_object(obj):
+    return reverse(f'admin:{obj._meta.app_label}_{obj._meta.model_name}_change', args=[obj.pk])
 
+
+@register.filter
+def model_name(obj):
+    return obj._meta.model_name
+
+@register.filter
+def object_verbose_name(obj):
+    return obj._meta.verbose_name
 
 @register.filter
 def rating_verbose(boundField):

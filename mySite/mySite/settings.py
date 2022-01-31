@@ -45,11 +45,11 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'debug_toolbar',
     'taggit',
-    'nested_inline',
     
     'microblog',
     'resume',
     'myList',
+    'rating',
 
     'django_cleanup.apps.CleanupConfig', # В таком порядке по документации пакета.
 ]

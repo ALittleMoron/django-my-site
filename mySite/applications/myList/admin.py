@@ -1,38 +1,17 @@
-from django.contrib import admin
-from django.contrib import messages
+from django.contrib import admin, messages
+from django.templatetags.static import static
 from django.utils.html import format_html
 from django.utils.translation import ngettext
-from django.templatetags.static import static
-from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin
 
-from .forms import RatingOnlyAdminForm, CKProductAdminForm
-from .models import Product, Rating, RatingItem
-
-
-class RatingItemsInline(NestedTabularInline):
-    model = RatingItem
-    extra = 1
-    fk_name = 'parent'
-    
-    
-class RatingInline(NestedStackedInline):
-    model = Rating
-    extra = 1
-    fk_name = 'parent_product'
-    inlines = [RatingItemsInline, ]
+from .forms import (CKAnimeAdminForm, CKBookAdminForm, CKFilmAdminForm, CKGameAdminForm,
+                    CKSeriesAdminForm)
+from .models import Anime, Book, Film, Game, Series
+from rating.admin import RatingItemInline
 
 
-class RatingOnlyAdmin(admin.ModelAdmin):
-    form = RatingOnlyAdminForm
-    inlines = [RatingItemsInline,]
-
-
-class CommonProductAdmin(NestedModelAdmin):
-    form = CKProductAdminForm
-    
+class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "product_type",
         "name",
         "native_name",
         "i_recommend",
@@ -41,12 +20,12 @@ class CommonProductAdmin(NestedModelAdmin):
     )
     list_display_links = ("id", "name", "native_name")
     search_fields = ("name", "native_name")
-    list_filter = ("i_recommend", "product_type")
+    list_filter = ("i_recommend",)
     prepopulated_fields = {"slug": ("name",)}
     actions = ['make_published']
-    inlines = [RatingInline, ]
+    inlines = [RatingItemInline,]
 
-    def poster_preview_tag(self, obj: Product):
+    def poster_preview_tag(self, obj):
         image = '<img src="{}" width="45px" height="45px"/>'
         if not obj.poster:
             return format_html(
@@ -70,5 +49,28 @@ class CommonProductAdmin(NestedModelAdmin):
     make_published.short_description = 'Опубликовать выделенное'
 
 
-admin.site.register(Product, CommonProductAdmin)
-admin.site.register(Rating, RatingOnlyAdmin)
+class AnimeAdmin(ProductAdmin):
+    form = CKAnimeAdminForm
+
+
+class BookAdmin(ProductAdmin):
+    form = CKBookAdminForm
+
+
+class FilmAdmin(ProductAdmin):
+    form = CKFilmAdminForm
+
+
+class GameAdmin(ProductAdmin):
+    form = CKGameAdminForm
+
+
+class SeriesAdmin(ProductAdmin):
+    form = CKSeriesAdminForm
+
+
+admin.site.register(Anime, AnimeAdmin)
+admin.site.register(Book, BookAdmin)
+admin.site.register(Film, FilmAdmin)
+admin.site.register(Game, GameAdmin)
+admin.site.register(Series, SeriesAdmin)

@@ -1,21 +1,38 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 
-from .models import Product
+from .models import Anime, Book, Film, Game, Series
 
 
-class CKProductAdminForm(forms.ModelForm):
+class CKAbstractAdminForm(forms.ModelForm):
     class Meta:
-        model = Product
         fields = '__all__'
         widgets = {
             'description': CKEditorWidget,
             'opinion': CKEditorWidget
         }
 
+class CKBookAdminForm(forms.ModelForm):
+    class Meta(CKAbstractAdminForm.Meta):
+        model = Book
 
-class RatingOnlyAdminForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.fields['parent_product'].queryset = Product.objects.filter(rating__isnull=True)
-    
+
+class CKAnimeAdminForm(forms.ModelForm):
+    class Meta(CKAbstractAdminForm.Meta):
+        model = Anime
+
+class CKFilmAdminForm(forms.ModelForm):
+    class Meta(CKAbstractAdminForm.Meta):
+        model = Film
+
+
+class CKGameAdminForm(forms.ModelForm):
+    class Meta(CKAbstractAdminForm.Meta):
+        model = Game
+
+
+class CKSeriesAdminForm(forms.ModelForm):
+    class Meta(CKAbstractAdminForm.Meta):
+        model = Series
+
+

@@ -136,16 +136,8 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "django-nested-inline"
-version = "0.4.4"
-description = "Recursive nesting of inline forms for Django Admin"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "django-taggit"
-version = "1.5.1"
+version = "2.1.0"
 description = "django-taggit is a reusable Django application for simple tagging."
 category = "main"
 optional = false
@@ -431,7 +423,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "583fda531ce546aef3d2a7d8eb795f572a03c02888b24919462477ae2ace61f8"
+content-hash = "4a554b3f2574180c13189e12906be38ec9671f0835ae0b7860b84e36b25512ed"
 
 [metadata.files]
 appnope = [
@@ -482,13 +474,9 @@ django-js-asset = [
     {file = "django-js-asset-1.2.2.tar.gz", hash = "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"},
     {file = "django_js_asset-1.2.2-py2.py3-none-any.whl", hash = "sha256:8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd"},
 ]
-django-nested-inline = [
-    {file = "django-nested-inline-0.4.4.tar.gz", hash = "sha256:ef1c0aa5c162073fd03ab515a8550b76c51c4a2eb5923ebdaffb8125581c4775"},
-    {file = "django_nested_inline-0.4.4-py2.py3-none-any.whl", hash = "sha256:c8fcb2091c978ab58e474ad6711fed95c0d276673f973f5d57964a4e2b04ab31"},
-]
 django-taggit = [
-    {file = "django-taggit-1.5.1.tar.gz", hash = "sha256:e5bb62891f458d55332e36a32e19c08d20142c43f74bc5656c803f8af25c084a"},
-    {file = "django_taggit-1.5.1-py3-none-any.whl", hash = "sha256:dfe9e9c10b5929132041de0c00093ef0072c73c2a97d0f74a818ae50fa77149a"},
+    {file = "django-taggit-2.1.0.tar.gz", hash = "sha256:a9f41e4ad58efe4b28d86f274728ee87eb98eeae90c9eb4b4efad39e5068184e"},
+    {file = "django_taggit-2.1.0-py3-none-any.whl", hash = "sha256:61547a23fc99967c9304107414a09e662b459f4163dbbae32e60b8ba40c34d05"},
 ]
 ipython = [
     {file = "ipython-7.27.0-py3-none-any.whl", hash = "sha256:75b5e060a3417cf64f138e0bb78e58512742c57dc29db5a5058a2b1f0c10df02"},

@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('microblog.urls')),
     path('resume/', include('resume.urls')),
     path('myList/', include('myList.urls')),
+    path('rating/', include('rating.urls'))
 ]
 
 
