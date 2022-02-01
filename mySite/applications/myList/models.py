@@ -65,6 +65,12 @@ class Product(models.Model):
     )
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
 
+    def __str__(self, class_name_verbose, name) -> str:
+        return f'{class_name_verbose} "{name}"'
+
+    def __repr__(self, class_name, pk, name, status) -> str:
+        return f'{class_name}({pk=}, {name=}, {status=})'
+
     def get_absolute_url(self):
         return reverse(
             "myList/productDetail",
@@ -82,6 +88,12 @@ class Film(Product):
         verbose_name='Число повторных просмотров',
     )
 
+    def __str__(self) -> str:
+        return super().__str__('Фильм', self.name)
+
+    def __repr__(self) -> str:
+        return super().__repr__('Film', self.pk, self.name, self.status)
+
     class Meta:
         verbose_name = 'фильм'
         verbose_name_plural = 'Фильмы'
@@ -95,6 +107,12 @@ class Series(Product):
         verbose_name='Число повторных просмотров',
     )
 
+    def __str__(self) -> str:
+        return super().__str__('Сериал' ,self.name)
+
+    def __repr__(self) -> str:
+        return super().__repr__('Series', self.pk, self.name, self.status)
+
     class Meta:
         verbose_name = 'Сериал'
         verbose_name_plural = 'Сериалы'
@@ -104,6 +122,12 @@ class Series(Product):
 class Book(Product):
     rating = GenericRelation(RatingItem, related_query_name='books')
     ISBN = models.CharField(max_length=30, unique=True, verbose_name='Номер книги')
+
+    def __str__(self) -> str:
+        return super().__str__('Книга', self.name)
+
+    def __repr__(self) -> str:
+        return super().__repr__('Book', self.pk, self.name, self.status)
 
     class Meta:
         verbose_name = 'Книга'
@@ -128,6 +152,12 @@ class Anime(Product):
         verbose_name='Тип аниме'
     )
 
+    def __str__(self) -> str:
+        return super().__str__('Аниме', self.name)
+
+    def __repr__(self) -> str:
+        return super().__repr__('Anime', self.pk, self.name, self.status)
+
     class Meta:
         verbose_name = 'Аниме'
         verbose_name_plural = 'Аниме'
@@ -136,6 +166,12 @@ class Anime(Product):
 
 class Game(Product):
     rating = GenericRelation(RatingItem, related_query_name='games')
+
+    def __str__(self) -> str:
+        return super().__str__('Игра', self.name)
+
+    def __repr__(self) -> str:
+        return super().__repr__('Game', self.pk, self.name, self.status)
     
     class Meta:
         verbose_name = 'Игра'

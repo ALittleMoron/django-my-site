@@ -1,9 +1,8 @@
 from django.urls import path
 
-from .views import Resume, GitHubProjects
+from .views import Resume
 
 
 urlpatterns = [
-    path('', Resume.as_view(), name='resume'),
-    path('git-hub-projects/', GitHubProjects.as_view(), name='resume/gitHubProjects'),
+    path('', Resume.as_view(), name='aboutMe'),
 ]

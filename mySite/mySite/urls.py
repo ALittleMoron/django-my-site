@@ -24,7 +24,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('microblog.urls')),
-    path('resume/', include('resume.urls')),
+    path('about-me/', include('resume.urls')),
     path('myList/', include('myList.urls')),
     path('rating/', include('rating.urls'))
 ]
