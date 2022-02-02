@@ -5,7 +5,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 
-from rating.models import RatingItem
+from rating.models import RatingItem, Round
 
 
 PRODUCT_TYPE = [
@@ -26,9 +26,15 @@ PRODUCT_STATUS = [
 ]
 
 
-class ProductManager(models.Manager):
+class ProductQuerySet(models.QuerySet):
+    def annotate_avg_p_rate(self):
+        return self.order_by('status').annotate(avg_p_rate=Round(models.Avg(
+                   'rating__score',
+                   filter=models.Q(rating__rating_purpose_type='P')
+               )))
+
     def separated_by_status(self):
-        query = self.get_queryset().order_by('status')
+        query = self.annotate_avg_p_rate()
         dict_ = {
             k: list(vs)
             for k, vs in groupby(query, attrgetter('status'))
@@ -37,6 +43,17 @@ class ProductManager(models.Manager):
             status1: dict_.get(status0, [])
             for status0, status1 in PRODUCT_STATUS
         }
+
+
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+    
+    def annotate_avg_p_rate(self):
+        return self.get_queryset().annotate_avg_p_rate()
+
+    def separated_by_status(self):
+        return self.get_queryset().separated_by_status()
 
 
 class Product(models.Model):
@@ -76,7 +93,6 @@ class Product(models.Model):
             "myList/productDetail",
             kwargs={"model_name": self.__class__.__name__.lower(), "slug": self.slug})
     
-
     class Meta:
         abstract = True
 

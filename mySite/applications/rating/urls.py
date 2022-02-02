@@ -7,7 +7,7 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='rating/ratingSystem'), name='rating/homePage'),
     path("rating-system", RatingSystemView.as_view(), name="rating/ratingSystem"),
     path(
-        "<str:model_name>/<slug:slug>/",
+        "<str:model_name>/<int:pk>/",
         ProductRatingView.as_view(),
         name="rating/productDetailRating",
     ),

@@ -34,11 +34,13 @@ class ProductDetailView(ModelNameDispatchMixin, DetailView):
     template_name = 'myList/productDetail.html'
     slug_url_kwarg = 'slug'
 
-    def get_context_data(self, **kwargs):
-        context =  super().get_context_data(**kwargs)
-        # context.update(self.get_object().rating.avarage_rating_score)
-        
-        return context
+    def get_queryset(self):
+        return self.model.objects.annotate_avg_p_rate()
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object, title=self.object.name)
+        return self.render_to_response(context)
 
 
 class ProductDeleteView(ModelNameDispatchMixin, DeleteView):

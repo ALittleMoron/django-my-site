@@ -1,3 +1,6 @@
+from itertools import groupby
+from operator import attrgetter
+
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -29,9 +32,31 @@ class Round(models.Func):
     template='%(function)s(%(expressions)s)'
 
 
+class RatingItemQuerySet(models.QuerySet):
+    def separated_by_purpose_type(self):
+        query = self.order_by('rating_purpose_type')
+        dict_ = {
+            k: list(vs)
+            for k, vs in groupby(query, attrgetter('rating_purpose_type'))
+        }
+        return {
+            type1: dict_.get(type0, [])
+            for type0, type1 in RATING_PURPOSE_TYPES
+        }
+
+
+class RatingItemManager(models.Manager):
+    def get_queryset(self):
+        return RatingItemQuerySet(self.model, using=self._db)
+
+    def separated_by_purpose_type(self):
+        return self.get_queryset().separated_by_purpose_type()
+
+
 class RatingItem(models.Model):
     """ Класс модели элемента рейтинговой системы для тайтлов библиотеки. """
     
+    objects = RatingItemManager()
     label = models.CharField(max_length=100, verbose_name='Пометка')
     positive_offset = models.IntegerField(
         default=0,
