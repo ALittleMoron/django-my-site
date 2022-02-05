@@ -59,9 +59,6 @@ class ProductManager(models.Manager):
 class Product(models.Model):
     objects = ProductManager()
     name = models.CharField(max_length=150, unique=True, verbose_name="Название")
-    native_name = models.CharField(
-        max_length=150, unique=True, verbose_name="Название на родном языке"
-    )
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     opinion = models.TextField(null=True, blank=True, verbose_name="Мое мнение")
     slug = models.SlugField(max_length=160, null=True, verbose_name="Слаг")

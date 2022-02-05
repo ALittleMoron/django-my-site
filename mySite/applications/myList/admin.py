@@ -13,13 +13,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
-        "native_name",
         "i_recommend",
         "is_published",
         "poster_preview_tag",
     )
-    list_display_links = ("id", "name", "native_name")
-    search_fields = ("name", "native_name")
+    list_display_links = ("id", "name",)
+    search_fields = ("name",)
     list_filter = ("i_recommend",)
     prepopulated_fields = {"slug": ("name",)}
     actions = ['make_published']
