@@ -12,10 +12,10 @@
   {% if user.is_superuser %}
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center fs-3 border">
         <li>
-            <a href="{% url 'myList/choose' model_name=product|model_name %}" class="nav-link mx-1 text-white hovered">Назад</a>
+            <a href="{% url 'myList:choose' model_name=product|model_name %}" class="nav-link mx-1 text-white hovered">Назад</a>
         </li>
         <li>
-            <a href="{% url 'myList/productDelete' model_name=product|model_name slug=product.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
+            <a href="{% url 'myList:delete' model_name=product|model_name slug=product.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
         </li>
         <li>
             <a href="{% url_to_edit_object product %}" class="nav-link mx-1 text-white hovered">Обновить</a>
@@ -27,7 +27,7 @@
   {% else %}
     <ul class="nav mb-2 fs-3">
         <li>
-            <a href="{% url 'myList/choose' model_name=product|model_name %}" class="nav-link mx-1 text-white hovered">← Назад</a>
+            <a href="{% url 'myList:choose' model_name=product|model_name %}" class="nav-link mx-1 text-white hovered">← Назад</a>
         </li>
     </ul>
   {% endif %}
@@ -42,7 +42,7 @@
             {% if product.avg_p_rate %}
               <p class="text-center" style='margin-bottom: 0px;'><span style='color: gold; font-size: 32px;'>{{product.avg_p_rate|starred}}</span><span style='font-size: 32px;' class="text-muted">{{product.avg_p_rate|not_starred}}</span></p>
               <h5 class='text-center'>{{product.avg_p_rate|floatformat:"0" }}/10 ({{product.avg_p_rate|rating_verbose}})</h5>
-              <a style="text-align: center; display: block;'" class='text-center text-muted' href="{% url 'rating/productDetailRating' model_name=product|model_name pk=product.pk %}">перейти к полной оценке</a>
+              <a style="text-align: center; display: block;'" class='text-center text-muted' href="{% url 'rating:detail' model_name=product|model_name pk=product.pk %}">перейти к полной оценке</a>
             {% else %}
               <p class="text-center text-muted" style='font-size: 32px; margin-bottom: 0px;'>★★★★★★★★★★</p>
               <h5 class="text-center">оценки нет</h5>

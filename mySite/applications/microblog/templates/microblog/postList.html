@@ -1,12 +1,6 @@
 {% extends 'microblog/microblogBase.html' %}
 
 {% block navigate %}
-{% if user.is_superuser %}
-    <div class="align-items-center justify-content-center justify-content-lg-start">
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-</ul>
-</div>
-{% endif %}
 {{ block.super }}
 {% endblock navigate %}
 
@@ -30,7 +24,7 @@
   </div>
   <div class="card-body">
     <p class="card-text">{{post.text|truncatewords:50|safe}}</p>
-    <a href="{% url 'microblog/postDetail' slug=post.slug %}" class="btn btn-danger btn-custom">Подробнее</a>
+    <a href="{% url 'microblog:detail' slug=post.slug %}" class="btn btn-danger btn-custom">Подробнее</a>
   </div>
 </div>
 {% endif %}

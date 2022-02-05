@@ -9,7 +9,7 @@
   <div class="container mt-2">
   <ul class="nav mb-2 fs-3">
     <li>
-      <a href="{% url 'myList/productDetail' model_name=goback_model slug=goback_slug %}" class="nav-link mx-1 text-white hovered">← Назад</a>
+      <a href="{% url 'myList:detail' model_name=goback_model slug=goback_slug %}" class="nav-link mx-1 text-white hovered">← Назад</a>
     </li>
   </ul>
     {% for ratingItem in ratingItems %}

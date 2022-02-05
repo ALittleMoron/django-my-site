@@ -1,11 +1,11 @@
 {% with url_name=request.path %}
     <div class="align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <a href="{% url 'myList/choose' "anime" %}" class="nav-link text-white hovered {% if 'anime' in url_name %}current{% endif %}" style='display: block;'>Аниме</a> .
-        <a href="{% url 'myList/choose' "film" %}" class="nav-link text-white hovered {% if 'film' in url_name %}current{% endif %}" style='display: block;'>Фильмы</a> .
-        <a href="{% url 'myList/choose' 'series' %}" class="nav-link text-white hovered {% if 'series' in url_name %}current{% endif %}" style='display: block;'>Сериалы</a> .
-        <a href="{% url 'myList/choose' 'game' %}" class="nav-link text-white hovered {% if 'game' in url_name %}current{% endif %}" style='display: block;'>Игры</a> .
-        <a href="{% url 'myList/choose' 'book' %}" class="nav-link text-white hovered {% if 'book' in url_name %}current{% endif %}" style='display: block;'>Книги</a>
+          <a href="{% url 'myList:choose' "anime" %}" class="nav-link text-white hovered {% if 'anime' in url_name %}current{% endif %}" style='display: block;'>Аниме</a> .
+        <a href="{% url 'myList:choose' "film" %}" class="nav-link text-white hovered {% if 'film' in url_name %}current{% endif %}" style='display: block;'>Фильмы</a> .
+        <a href="{% url 'myList:choose' 'series' %}" class="nav-link text-white hovered {% if 'series' in url_name %}current{% endif %}" style='display: block;'>Сериалы</a> .
+        <a href="{% url 'myList:choose' 'game' %}" class="nav-link text-white hovered {% if 'game' in url_name %}current{% endif %}" style='display: block;'>Игры</a> .
+        <a href="{% url 'myList:choose' 'book' %}" class="nav-link text-white hovered {% if 'book' in url_name %}current{% endif %}" style='display: block;'>Книги</a>
       </ul>
     </div>
 {% endwith %}

@@ -19,7 +19,7 @@
       {% csrf_token %}
       <div class="row">
         <div class="col">
-          <a href="{% url 'microblog/postDetail' slug=post.slug %}" class="nav-link text-white fs-4 hovered">Назад</a>
+          <a href="{% url 'microblog:detail' slug=post.slug %}" class="nav-link text-white fs-4 hovered">Назад</a>
         </div>
         <div class="col">
           <button type="submit" class="btn btn-danger fs-4">Удалить</button>

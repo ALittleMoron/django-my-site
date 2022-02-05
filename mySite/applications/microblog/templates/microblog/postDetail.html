@@ -9,11 +9,11 @@
 
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center fs-3 border">
         <li>
-            <a href="{% url 'microblog/postList' %}" class="nav-link mx-1 text-white hovered">Назад</a>
+            <a href="{% url 'microblog:list' %}" class="nav-link mx-1 text-white hovered">Назад</a>
         </li>
         {% if user.is_superuser %}
         <li>
-            <a href="{% url 'microblog/postDelete' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
+            <a href="{% url 'microblog:delete' slug=post.slug %}" class="nav-link mx-1 text-white hovered">Удалить</a>
         </li>
         <li>
             <a href="{% url 'admin:microblog_post_change' post.pk %}" class="nav-link mx-1 text-white hovered">Обновить</a>
@@ -36,7 +36,7 @@
                 {% endif %}
 
                 {% for tag in post.tags.all %}
-                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'microblog/postTags' name=tag.name %}">{{tag.name}}</a>
+                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'microblog:tags' name=tag.name %}">{{tag.name}}</a>
                 {% endfor %}
 
             </header>
