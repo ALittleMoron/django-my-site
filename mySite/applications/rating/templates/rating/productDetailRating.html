@@ -12,12 +12,24 @@
       <a href="{% url 'myList:detail' model_name=goback_model slug=goback_slug %}" class="nav-link mx-1 text-white hovered">← Назад</a>
     </li>
   </ul>
-    {% for ratingItem in ratingItems %}
-    <div class="row">
-      <div class="col">
-        {% comment %} TODO: Придумать, как красиво выводить элементы рейтинга {% endcomment %}
-      </div>
-    </div>
+    {% for purposeType, ratingItems in dict_queryset.items %}
+    {% if ratingItems %}
+    <h2 class="text-white text-center">{{purposeType}}:</h2>
+      {% for ratingItem in ratingItems %}
+        <div class='mx-5 mb-2'>
+          <div class="row border">
+             <div class="mt-1 col-md-4">
+               <h5 class="text-white text-center">{{ratingItem.label}}:</h5>
+             </div>
+             <div class="mt-1 col-md-8">
+                <p style='text-align: justify;' class="text-muted">{{ratingItem.explanation}}</p>
+             </div>
+              <p class="text-center" style='margin-bottom: 0px;'><span style='color: gold; font-size: 32px;'>{{ratingItem.score|starred}}</span><span style='font-size: 32px;' class="text-muted">{{ratingItem.score|not_starred}}</span></p>
+              <h5 class='text-white text-center'>{{ratingItem.score|floatformat:"0" }}/10 ({{ratingItem.score|rating_verbose}})</h5>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
     {% endfor %}
   </div>
 {% endblock main %}

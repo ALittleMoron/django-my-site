@@ -17,9 +17,9 @@ class ProductRatingView(ModelNameDispatchMixin, View):
     template_name = 'rating/productDetailRating.html'
 
     def get(self, request, *args, **kwargs):
-        self.objects = RatingItem.objects.filter(object_id=self.kwargs.get('pk'))
+        self.objects = RatingItem.objects.filter(object_id=self.kwargs.get('pk')).separated_by_purpose_type()
         context = {
-            'ratingItems': self.objects,
+            'dict_queryset': self.objects,
             'goback_model': self.model._meta.model_name,
             'goback_slug': self.model.objects.get(pk=self.kwargs.get('pk')).slug
         }
