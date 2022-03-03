@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block navigate %}
     {{ block.super }}
     {% include 'resume/inc/resumeNav.html' %}
 {% endblock navigate %}
+
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'other/gitHubCards.css' %}">
+{% endblock extrastyle %}

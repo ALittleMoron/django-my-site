@@ -1,0 +1,22 @@
+.github-place {
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    -moz-column-gap: 16px;
+    column-gap: 16px;
+    display: grid;
+    font-size: 85%;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 15px;
+    row-gap: 16px;
+}
+
+
+.github-place__box {
+    background-color: #fff;
+    border-radius: 6px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
