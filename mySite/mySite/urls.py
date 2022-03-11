@@ -16,17 +16,23 @@ Including another URLconf
 import debug_toolbar
 
 from django.contrib import admin
+from django.views.generic import RedirectView
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('', include('microblog.urls', namespace='microblog')),
+    path('api-auth/', include('rest_framework.urls')),
+
+    path('', RedirectView.as_view(pattern_name='microblog:list')),
+    path('microblog/', include('microblog.urls', namespace='microblog')),
     path('about-me/', include('resume.urls')),
     path('myList/', include('myList.urls', namespace='myList')),
-    path('rating/', include('rating.urls', namespace='rating'))
+    path('rating/', include('rating.urls', namespace='rating')),
+    path('api/v1/', include('api.urls', namespace='api')),
 ]
 
 
