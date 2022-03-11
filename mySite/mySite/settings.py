@@ -14,6 +14,8 @@ import os
 import sys
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -23,7 +25,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'applications'))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,12 +46,14 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'debug_toolbar',
+    'rest_framework',
     'taggit',
-    
+
     'microblog',
     'resume',
     'myList',
     'rating',
+    'api',
 
     'django_cleanup.apps.CleanupConfig', # В таком порядке по документации пакета.
 ]
@@ -96,9 +100,9 @@ WSGI_APPLICATION = 'mySite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
+        'NAME': config('DB_NAME'),
         'USER': 'dimalunev',
-        'PASSWORD': os.environ.get('PSQL_PASSWORD'),
+        'PASSWORD': config('PSQL_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
