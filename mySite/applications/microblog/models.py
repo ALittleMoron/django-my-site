@@ -4,10 +4,11 @@ from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
-    """ Класс модели постов моего микроблога.
-    
+    """Класс модели постов моего микроблога.
+
     Автора нет, так как им в 100% случаев буду только я.
     """
+
     title = models.CharField(max_length=255, unique=True, verbose_name="Заголовок")
     text = models.TextField(verbose_name="Текст")
     slug = models.SlugField(null=True, max_length=300)
@@ -26,4 +27,4 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
-        ordering = ['updated_at']
+        ordering = ["updated_at"]

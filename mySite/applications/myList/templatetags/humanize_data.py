@@ -9,16 +9,20 @@ register = template.Library()
 
 @register.simple_tag
 def url_to_edit_object(obj):
-    return reverse(f'admin:{obj._meta.app_label}_{obj._meta.model_name}_change', args=[obj.pk])
+    return reverse(
+        f"admin:{obj._meta.app_label}_{obj._meta.model_name}_change", args=[obj.pk]
+    )
 
 
 @register.filter
 def model_name(obj):
     return obj._meta.model_name
 
+
 @register.filter
 def object_verbose_name(obj):
     return obj._meta.verbose_name
+
 
 @register.filter
 def rating_verbose(boundField):
@@ -28,9 +32,9 @@ def rating_verbose(boundField):
 
 @register.filter
 def starred(ratingField):
-    return '★' * round(ratingField)
+    return "★" * round(ratingField)
 
 
 @register.filter
 def not_starred(ratingField):
-    return '★' * round(10 - ratingField)
+    return "★" * round(10 - ratingField)

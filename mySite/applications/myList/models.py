@@ -17,38 +17,35 @@ PRODUCT_TYPE = [
 ]
 
 PRODUCT_STATUS = [
-    ('pn', 'Запланировано'),
-    ('ga', 'В процессе'),
-    ('rv', 'Повтор'),
-    ('ac', 'Завершено'),
-    ('ab', 'Брошено'),
-    ('pp', 'Отложено'),
+    ("pn", "Запланировано"),
+    ("ga", "В процессе"),
+    ("rv", "Повтор"),
+    ("ac", "Завершено"),
+    ("ab", "Брошено"),
+    ("pp", "Отложено"),
 ]
 
 
 class ProductQuerySet(models.QuerySet):
     def annotate_avg_p_rate(self):
-        return self.order_by('status').annotate(avg_p_rate=Round(models.Avg(
-                   'rating__score',
-                   filter=models.Q(rating__rating_purpose_type='P')
-               )))
+        return self.order_by("status").annotate(
+            avg_p_rate=Round(
+                models.Avg(
+                    "rating__score", filter=models.Q(rating__rating_purpose_type="P")
+                )
+            )
+        )
 
     def separated_by_status(self):
         query = self.annotate_avg_p_rate()
-        dict_ = {
-            k: list(vs)
-            for k, vs in groupby(query, attrgetter('status'))
-        }
-        return {
-            status1: dict_.get(status0, [])
-            for status0, status1 in PRODUCT_STATUS
-        }
+        dict_ = {k: list(vs) for k, vs in groupby(query, attrgetter("status"))}
+        return {status1: dict_.get(status0, []) for status0, status1 in PRODUCT_STATUS}
 
 
 class ProductManager(models.Manager):
     def get_queryset(self):
         return ProductQuerySet(self.model, using=self._db)
-    
+
     def annotate_avg_p_rate(self):
         return self.get_queryset().annotate_avg_p_rate()
 
@@ -67,12 +64,10 @@ class Product(models.Model):
         blank=False,
         null=False,
         choices=PRODUCT_STATUS,
-        default='ac',
-        verbose_name='Статус',
+        default="ac",
+        verbose_name="Статус",
     )
-    i_recommend = models.BooleanField(
-        default=False, verbose_name="Рекомендую"
-    )
+    i_recommend = models.BooleanField(default=False, verbose_name="Рекомендую")
     url = models.URLField(null=True, blank=True, verbose_name="Ссылка")
     poster = models.ImageField(
         blank=True, null=True, upload_to="posters/%Y/%m/%d", verbose_name="Постер"
@@ -83,110 +78,108 @@ class Product(models.Model):
         return f'{class_name_verbose} "{name}"'
 
     def __repr__(self, class_name, pk, name, status) -> str:
-        return f'{class_name}({pk=}, {name=}, {status=})'
+        return f"{class_name}({pk=}, {name=}, {status=})"
 
     def get_absolute_url(self):
         return reverse(
             "myList/productDetail",
-            kwargs={"model_name": self.__class__.__name__.lower(), "slug": self.slug})
-    
+            kwargs={"model_name": self.__class__.__name__.lower(), "slug": self.slug},
+        )
+
     class Meta:
         abstract = True
 
 
 class Film(Product):
-    rating = GenericRelation(RatingItem, related_query_name='films')
+    rating = GenericRelation(RatingItem, related_query_name="films")
     review_count = models.PositiveIntegerField(
         default=0,
-        verbose_name='Число повторных просмотров',
+        verbose_name="Число повторных просмотров",
     )
 
     def __str__(self) -> str:
-        return super().__str__('Фильм', self.name)
+        return super().__str__("Фильм", self.name)
 
     def __repr__(self) -> str:
-        return super().__repr__('Film', self.pk, self.name, self.status)
+        return super().__repr__("Film", self.pk, self.name, self.status)
 
     class Meta:
-        verbose_name = 'фильм'
-        verbose_name_plural = 'Фильмы'
-        ordering = ['status']
+        verbose_name = "фильм"
+        verbose_name_plural = "Фильмы"
+        ordering = ["status"]
 
 
 class Series(Product):
-    rating = GenericRelation(RatingItem, related_query_name='series')
+    rating = GenericRelation(RatingItem, related_query_name="series")
     review_count = models.PositiveIntegerField(
         default=0,
-        verbose_name='Число повторных просмотров',
+        verbose_name="Число повторных просмотров",
     )
 
     def __str__(self) -> str:
-        return super().__str__('Сериал' ,self.name)
+        return super().__str__("Сериал", self.name)
 
     def __repr__(self) -> str:
-        return super().__repr__('Series', self.pk, self.name, self.status)
+        return super().__repr__("Series", self.pk, self.name, self.status)
 
     class Meta:
-        verbose_name = 'Сериал'
-        verbose_name_plural = 'Сериалы'
-        ordering = ['status']
+        verbose_name = "Сериал"
+        verbose_name_plural = "Сериалы"
+        ordering = ["status"]
 
 
 class Book(Product):
-    rating = GenericRelation(RatingItem, related_query_name='books')
-    ISBN = models.CharField(max_length=30, unique=True, verbose_name='Номер книги')
+    rating = GenericRelation(RatingItem, related_query_name="books")
+    ISBN = models.CharField(max_length=30, unique=True, verbose_name="Номер книги")
 
     def __str__(self) -> str:
-        return super().__str__('Книга', self.name)
+        return super().__str__("Книга", self.name)
 
     def __repr__(self) -> str:
-        return super().__repr__('Book', self.pk, self.name, self.status)
+        return super().__repr__("Book", self.pk, self.name, self.status)
 
     class Meta:
-        verbose_name = 'Книга'
-        verbose_name_plural = 'Книги'
-        ordering = ['status']
+        verbose_name = "Книга"
+        verbose_name_plural = "Книги"
+        ordering = ["status"]
 
 
 class Anime(Product):
-    rating = GenericRelation(RatingItem, related_query_name='anime')
+    rating = GenericRelation(RatingItem, related_query_name="anime")
     ANIME_TYPE = [
-        ('Ov', 'OVA'),
-        ('Fi', 'Фильм'),
-        ('Se', 'Сериал'),
-        ('On', 'ONA'),
-        ('Sp', 'Спешл'),
+        ("Ov", "OVA"),
+        ("Fi", "Фильм"),
+        ("Se", "Сериал"),
+        ("On", "ONA"),
+        ("Sp", "Спешл"),
     ]
-    
+
     anime_type = models.CharField(
-        max_length=2,
-        default='Se',
-        choices=ANIME_TYPE,
-        verbose_name='Тип аниме'
+        max_length=2, default="Se", choices=ANIME_TYPE, verbose_name="Тип аниме"
     )
 
     def __str__(self) -> str:
-        return super().__str__('Аниме', self.name)
+        return super().__str__("Аниме", self.name)
 
     def __repr__(self) -> str:
-        return super().__repr__('Anime', self.pk, self.name, self.status)
+        return super().__repr__("Anime", self.pk, self.name, self.status)
 
     class Meta:
-        verbose_name = 'Аниме'
-        verbose_name_plural = 'Аниме'
-        ordering = ['status']
+        verbose_name = "Аниме"
+        verbose_name_plural = "Аниме"
+        ordering = ["status"]
 
 
 class Game(Product):
-    rating = GenericRelation(RatingItem, related_query_name='games')
+    rating = GenericRelation(RatingItem, related_query_name="games")
 
     def __str__(self) -> str:
-        return super().__str__('Игра', self.name)
+        return super().__str__("Игра", self.name)
 
     def __repr__(self) -> str:
-        return super().__repr__('Game', self.pk, self.name, self.status)
-    
+        return super().__repr__("Game", self.pk, self.name, self.status)
+
     class Meta:
-        verbose_name = 'Игра'
-        verbose_name_plural = 'Игры'
-        ordering = ['status']
+        verbose_name = "Игра"
+        verbose_name_plural = "Игры"
+        ordering = ["status"]

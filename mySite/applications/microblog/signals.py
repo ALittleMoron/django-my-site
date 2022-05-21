@@ -8,7 +8,7 @@ from .models import Post
 
 @receiver(pre_save, sender=Post)
 def presave_fields(sender, instance, *args, **kwargs):
-    """ Обычный сигнал для изменения времени публикации и добавление слага. """
+    """Обычный сигнал для изменения времени публикации и добавление слага."""
     if instance.is_published and instance.published_at is None:
         instance.published_at = timezone.now()
     elif not instance.is_published and instance.published_at is not None:

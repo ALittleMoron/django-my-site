@@ -4,9 +4,9 @@ from django.http.response import Http404
 
 class ModelNameDispatchMixin:
     def dispatch(self, request, *args, **kwargs):
-        model_name = kwargs.get('model_name', None)
+        model_name = kwargs.get("model_name", None)
         if not model_name:
             raise Http404
-        self.model = apps.get_model(app_label='myList', model_name=model_name)
-        
+        self.model = apps.get_model(app_label="myList", model_name=model_name)
+
         return super().dispatch(request, *args, **kwargs)

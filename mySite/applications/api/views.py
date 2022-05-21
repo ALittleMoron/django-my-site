@@ -8,14 +8,14 @@ from rest_framework.views import APIView
 
 from microblog.models import Post
 from .serializers import PostSerializer
-    
+
 
 class PostAPIListOrCreateView(APIView):
     def get(self, request):
         posts = Post.objects.filter(is_published=True)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
-    
+
     def post(self, request):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
@@ -29,7 +29,7 @@ class PostAPIDetailOrUpdateView(APIView):
         post = get_object_or_404(Post, pk=pk)
         serialiser = PostSerializer(post)
         return Response(serialiser.data)
-    
+
     def patch(self, request, pk, partial=True):
         if request.user.is_superuser:
             post = get_object_or_404(Post, pk=pk)
@@ -42,14 +42,14 @@ class PostAPIDetailOrUpdateView(APIView):
         return JsonResponse(
             {"sucess": False, "detail": "permision denied (you are not super user)"}
         )
-    
+
     def post(self, request, pk):
         return self.patch(request, pk, partial=False)
 
     def delete(self, request, pk):
         if request.user.is_superuser:
             post = get_object_or_404(Post, pk=pk)
-            post.delete() 
+            post.delete()
             return JsonResponse({"sucess": True})
         return JsonResponse(
             {"sucess": False, "detail": "permision denied (you are not super user)"}

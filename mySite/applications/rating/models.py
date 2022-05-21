@@ -1,7 +1,7 @@
 from itertools import groupby
 from operator import attrgetter
 
-from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -22,27 +22,23 @@ RATING_CHOICES = [
 ]
 
 RATING_PURPOSE_TYPES = [
-    ('O', 'Беспристрастное мнение'),
-    ('P', 'Личное мнение')
+    ("O", "Беспристрастное мнение"),
+    ("P", "Личное мнение")
 ]
 
 
 class Round(models.Func):
-    function = 'ROUND'
-    template='%(function)s(%(expressions)s)'
+    function = "ROUND"
+    template = "%(function)s(%(expressions)s)"
 
 
 class RatingItemQuerySet(models.QuerySet):
     def separated_by_purpose_type(self):
-        query = self.order_by('rating_purpose_type')
+        query = self.order_by("rating_purpose_type")
         dict_ = {
-            k: list(vs)
-            for k, vs in groupby(query, attrgetter('rating_purpose_type'))
+            k: list(vs) for k, vs in groupby(query, attrgetter("rating_purpose_type"))
         }
-        return {
-            type1: dict_.get(type0, [])
-            for type0, type1 in RATING_PURPOSE_TYPES
-        }
+        return {type1: dict_.get(type0, []) for type0, type1 in RATING_PURPOSE_TYPES}
 
 
 class RatingItemManager(models.Manager):
@@ -54,30 +50,34 @@ class RatingItemManager(models.Manager):
 
 
 class RatingItem(models.Model):
-    """ Класс модели элемента рейтинговой системы для тайтлов библиотеки. """
-    
+    """Класс модели элемента рейтинговой системы для тайтлов библиотеки."""
+
     objects = RatingItemManager()
-    label = models.CharField(max_length=100, verbose_name='Пометка')
+    label = models.CharField(max_length=100, verbose_name="Пометка")
     positive_offset = models.IntegerField(
         default=0,
-        verbose_name='сдвиг оценки',
-        validators=[MinValueValidator(0), MaxValueValidator(4)]
+        verbose_name="сдвиг оценки",
+        validators=[MinValueValidator(0), MaxValueValidator(4)],
     )
     rating_purpose_type = models.CharField(
         max_length=1,
-        default='O',
+        default="O",
         choices=RATING_PURPOSE_TYPES,
-        verbose_name='Направленность элемента рейтинга'
+        verbose_name="Направленность элемента рейтинга",
     )
     explanation = models.TextField(
-        null=True, blank=True, verbose_name='Объяснение',
+        null=True,
+        blank=True,
+        verbose_name="Объяснение",
     )
     score = models.IntegerField(
-        default=0, choices=RATING_CHOICES, verbose_name="Оценка",
+        default=0,
+        choices=RATING_CHOICES,
+        verbose_name="Оценка",
     )
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey("content_type", "object_id")
 
     # FIXME: переделать под особенности ContentType
     # @property
@@ -87,13 +87,14 @@ class RatingItem(models.Model):
     #         p_avg=Round(models.Avg('score', filter=models.Q(rating_purpose_type='P')))
     #     )
 
-
     def __str__(self) -> str:
-        return f'рейтинг для "{self.content_object if self.content_object else "пусоты"}"'
-    
+        return (
+            f'рейтинг для "{self.content_object if self.content_object else "пусоты"}"'
+        )
+
     def __repr__(self) -> str:
-        return f'RatingItem({self.pk=}, {self.label=}, {self.score=})'
-    
+        return f"RatingItem({self.pk=}, {self.label=}, {self.score=})"
+
     class Meta:
         verbose_name = "Элемент рейтинга"
         verbose_name_plural = "Элементы рейтинга"

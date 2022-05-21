@@ -4,5 +4,5 @@ from .views import Resume
 
 
 urlpatterns = [
-    path('', Resume.as_view(), name='aboutMe'),
+    path("", Resume.as_view(), name="aboutMe"),
 ]

@@ -6,9 +6,9 @@ from .models import GitHubRepositoryCard
 
 
 class Resume(View):
-    http_method_names = ['get']
-    template_name = 'resume/resume.html'
-    
+    http_method_names = ["get"]
+    template_name = "resume/resume.html"
+
     def get(self, request: HttpRequest) -> HttpResponse:
         cards = GitHubRepositoryCard.objects.filter(is_published=True).all()
-        return render(request, self.template_name, {'cards': cards})
+        return render(request, self.template_name, {"cards": cards})

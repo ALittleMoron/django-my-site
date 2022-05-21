@@ -6,11 +6,9 @@ from .models import Anime, Book, Film, Game, Series
 
 class CKAbstractAdminForm(forms.ModelForm):
     class Meta:
-        fields = '__all__'
-        widgets = {
-            'description': CKEditorWidget,
-            'opinion': CKEditorWidget
-        }
+        fields = "__all__"
+        widgets = {"description": CKEditorWidget, "opinion": CKEditorWidget}
+
 
 class CKBookAdminForm(forms.ModelForm):
     class Meta(CKAbstractAdminForm.Meta):
@@ -20,6 +18,7 @@ class CKBookAdminForm(forms.ModelForm):
 class CKAnimeAdminForm(forms.ModelForm):
     class Meta(CKAbstractAdminForm.Meta):
         model = Anime
+
 
 class CKFilmAdminForm(forms.ModelForm):
     class Meta(CKAbstractAdminForm.Meta):
@@ -34,5 +33,3 @@ class CKGameAdminForm(forms.ModelForm):
 class CKSeriesAdminForm(forms.ModelForm):
     class Meta(CKAbstractAdminForm.Meta):
         model = Series
-
-
