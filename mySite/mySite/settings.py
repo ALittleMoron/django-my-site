@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'applications'))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -101,10 +101,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DB_NAME'),
-        'USER': 'dimalunev',
-        'PASSWORD': config('PSQL_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
