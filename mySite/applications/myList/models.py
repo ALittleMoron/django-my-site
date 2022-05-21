@@ -82,7 +82,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            "myList/productDetail",
+            "myList:detail",
             kwargs={"model_name": self.__class__.__name__.lower(), "slug": self.slug},
         )
 
